@@ -1,0 +1,82 @@
+.my-navbar {
+    background-image: -webkit-linear-gradient(top,#005971 0,#005971 100%);
+    background-image: -o-linear-gradient(top,#005971 0,#005971 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#005971),to(#005971));
+    background-image: linear-gradient(to bottom,#005971 0,#005971 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff8f8f8', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    background-repeat: repeat-x;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.15),0 1px 5px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.15),0 1px 5px rgba(0,0,0,.075);
+}
+.navbar-brand{
+    color: #FFF !important;
+}
+.navbar-default .navbar-nav>li>a {
+    color: #FFF !important;
+}
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+    color: #555 !important;
+}
+
+
+/*---*/
+#search-input {
+    padding-top: 20px;
+    width: 50%;
+    margin:0 auto;
+}
+.theme-invert .btn {
+    color: rgba(255,255,255,.8);
+}
+#my-title{
+    font-family:  fantasy !important;
+    margin:0 auto;
+}
+
+.main-container{
+    padding-top: 65px;
+}
+#sbtn{
+    padding-top: 5px;
+    text-align: center;
+}
+
+/*==================================================
+=            Bootstrap 3 Media Queries             =
+==================================================*/
+
+
+    /*==========  Non-Mobile First Method  ==========*/
+
+    /* Large Devices, Wide Screens */
+    @media only screen and (max-width : 1200px) {
+
+    }
+
+    /* Medium Devices, Desktops */
+    @media only screen and (max-width : 992px) {
+
+    }
+
+    /* Small Devices, Tablets */
+    @media only screen and (max-width : 768px) {
+        #search-input {
+            width: 70%;
+        }
+    }
+
+    /* Extra Small Devices, Phones */ 
+    @media only screen and (max-width : 480px) {
+        #search-input {
+            width: 90%;
+        }
+    }
+
+    /* Custom, iPhone Retina */ 
+    @media only screen and (max-width : 320px) {
+        #search-input {
+            width: 90%;
+        }        
+    }

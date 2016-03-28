@@ -1,0 +1,5 @@
+/node_modules
+/.vagrant
+/.vagrant/*
+Homestead.yaml
+Homestead.json
