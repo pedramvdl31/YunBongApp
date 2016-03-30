@@ -14,6 +14,7 @@ use Session;
 use Laracasts\Flash\Flash;
 use View;
 use Mail;
+use DB;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -87,14 +88,45 @@ class ArticlesController extends Controller
      */
     public function postAdd()
     {       
-
+        Job::dump(Input::all());
         $validator = Validator::make(Input::all(), Article::$articles_add);
         if ($validator->passes()) {
-            $title = Input::get('title');
-            $description = Input::get('content');
+            $_img = Input::get('celebrity_image');
+            $tmp_path = "assets".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."articles".DIRECTORY_SEPARATOR."tmp".DIRECTORY_SEPARATOR;
+            $new_path = "assets".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."articles".DIRECTORY_SEPARATOR."prm".DIRECTORY_SEPARATOR;
+            if (!file_exists($tmp_path)) {
+                mkdir($tmp_path, 0777, true);
+            }               
+            if (!file_exists($new_path)) {
+                mkdir($new_path, 0777, true);
+            } 
+            $oldpath = public_path($tmp_path.$_img);
+            $newpath = public_path($new_path.$_img);
+            if (file_exists($tmp_path.$_img)) {
+                rename($oldpath, $newpath);
+            }  
+            $files = glob($tmp_path.'*'); // get all file names
+            foreach($files as $file){ // iterate files
+              if(is_file($file))
+                unlink($file); // delete file
+            }
+
             $articles_data = new Article;
-            $articles_data->title = $title;
-            $articles_data->description = $description;
+            $articles_data->name = Input::get('name');
+            $articles_data->title = Input::get('title');
+            $articles_data->nicknames = Input::get('nicknames');
+            $articles_data->net = Input::get('networth');
+            $articles_data->dob = Input::get('dob');
+            $articles_data->profession = Input::get('profession');
+            $articles_data->nationality = Input::get('nationality');
+            $articles_data->height = Input::get('height');
+            $articles_data->weight = Input::get('weight');
+            $articles_data->ethnicity = Input::get('ethnicity');
+            $articles_data->salary = Input::get('salary');
+            $articles_data->description = json_encode(Input::get('description'));
+            $articles_data->image_src = Input::get('celebrity_image');
+            $articles_data->status = 1;
+
             if ($articles_data->save()) {
                  Flash::success('Successfully added!');
                  return Redirect::route('articles_index');
@@ -118,7 +150,7 @@ class ArticlesController extends Controller
     public function getEdit($id = null)
     {
         if (isset($id)) {
-            $articles = Article::find($id);
+            $articles = Article::PrepareArticlesForEdit(Article::find($id));
                 return view('articles.edit')
                 ->with('layout',$this->layout)
                 ->with('articles',$articles);
@@ -138,10 +170,45 @@ class ArticlesController extends Controller
             $id = Input::get('article_id');
             $articles_data = Article::find($id);
             if (isset($articles_data)) {
-                $title = Input::get('title');
-                $description = Input::get('content');
-                $articles_data->title = $title;
-                $articles_data->description = $description;
+                $_img = Input::get('celebrity_image');
+                $tmp_path = "assets".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."articles".DIRECTORY_SEPARATOR."tmp".DIRECTORY_SEPARATOR;
+                $new_path = "assets".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."articles".DIRECTORY_SEPARATOR."prm".DIRECTORY_SEPARATOR;
+                if (!file_exists($tmp_path)) {
+                    mkdir($tmp_path, 0777, true);
+                }               
+                if (!file_exists($new_path)) {
+                    mkdir($new_path, 0777, true);
+                } 
+                $oldpath = public_path($tmp_path.$_img);
+                $newpath = public_path($new_path.$_img);
+                if (file_exists($tmp_path.$_img)) {
+                    rename($oldpath, $newpath);
+                    $tfiles = $new_path.$articles_data->image_src; // get all file names
+                    if(file_exists($tfiles)){
+                        unlink($tfiles); // delete file
+                    }
+                }  
+                $files = glob($tmp_path.'*'); // get all file names
+                foreach($files as $file){ // iterate files
+                  if(is_file($file))
+                    unlink($file); // delete file
+                }
+
+                $articles_data->name = Input::get('name');
+                $articles_data->title = Input::get('title');
+                $articles_data->nicknames = Input::get('nicknames');
+                $articles_data->net = Input::get('networth');
+                $articles_data->dob = Input::get('dob');
+                $articles_data->profession = Input::get('profession');
+                $articles_data->nationality = Input::get('nationality');
+                $articles_data->height = Input::get('height');
+                $articles_data->weight = Input::get('weight');
+                $articles_data->ethnicity = Input::get('ethnicity');
+                $articles_data->salary = Input::get('salary');
+                $articles_data->description = json_encode(Input::get('description'));
+                $articles_data->image_src = Input::get('celebrity_image');
+                $articles_data->status = 1;
+
                 if ($articles_data->save()) {
                      Flash::success('Successfully added!');
                      return Redirect::route('articles_index');
@@ -160,6 +227,35 @@ class ArticlesController extends Controller
         } 
         
     }  
+
+    public function postSearch()
+    {
+        $search_text = Input::get('searched_text');
+        if (isset($search_text) && $search_text!='') {
+            $articles = Article::PrepareForResultsPage(Article::where('status',1)->where('name', 'like', $search_text)->get());
+            $more_articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy('id', 'desc')->take(10)->get());
+            return view('articles.results')
+                ->with('layout','layouts.customize_layout')
+                ->with('resultspage','1')
+                ->with('articles',$articles)
+                ->with('search_text',$search_text)
+                ->with('more_articles',$more_articles);
+        }
+        Flash::error('Seatch query cannot be empty!');
+        return Redirect::route('home_index');
+    }  
+
+    public function postSearchRand()
+    {
+        $articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy(DB::raw('RAND()'))->take(10)->get());
+        $more_articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy('id', 'desc')->take(10)->get());
+        return view('articles.results')
+            ->with('layout','layouts.customize_layout')
+            ->with('resultspage','1')
+            ->with('articles',$articles)
+            ->with('more_articles',$more_articles);
+    }  
+
     /**
      * /admins/tasks/view.
      * @param $id - task_id
@@ -175,6 +271,11 @@ class ArticlesController extends Controller
         if (isset($id)) {
             $article = Article::find($id);
             if (isset($article)) {
+                    $new_path = "assets".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."articles".DIRECTORY_SEPARATOR."prm".DIRECTORY_SEPARATOR;
+                    $tfiles = $new_path.$article->image_src; // get all file names
+                    if(file_exists($tfiles)){
+                        unlink($tfiles); // delete file
+                    }
                 if ($article->delete()) {
                     Flash::success('Successfully Removed!');
                     return Redirect::route('articles_index');

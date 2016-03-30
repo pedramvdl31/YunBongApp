@@ -25,6 +25,12 @@ Route::group(['middleware' => 'beforeFilter'], function () {
 	Route::post('users/return-users',  ['uses' => 'UsersController@postReturnUsers', 'middleware' => ['acl:admins/acl/view']]);
 	Route::post('users/user-info',  ['uses' => 'UsersController@postUserInfo', 'middleware' => ['acl:admins/acl/view']]);
 
+
+
+	Route::post('articles/search',  ['uses' => 'ArticlesController@postSearch']);
+	Route::post('articles/search-rand',  ['uses' => 'ArticlesController@postSearchRand']);
+	Route::get('/rand-articles', ['as'=>'rand_view','uses'=>'ArticlesController@postSearchRand']);
+
 	Route::group(['prefix' => 'users'], function () {
 		Route::get('login', ['as'=>'users_login','uses'=>'UsersController@getLogin']);
 		Route::post('login',['uses'=>'UsersController@postLogin']);

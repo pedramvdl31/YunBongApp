@@ -21,7 +21,7 @@
             <thead>
               <tr>
                 <th>Id</th>
-                <th>Title</th>
+                <th>Name</th>
                 <th>Date</th>
                 <th>Action</th>
               </tr>
@@ -30,8 +30,8 @@
               @foreach ($articles as $tagkey => $tag)
                 
                 <tr>
-                  <th scope="row">{{$tag['id']}}</th>
-                  <td>{{$tag['title']}}</td>
+                  <th scope="row">{{$tagkey+1}}</th>
+                  <td>{{$tag['name']}}</td>
                   <td>{{$tag['created_at_html']}}</td>
                   <td>
                     <a href="{!! route('articles_edit',$tag['id']) !!}">Edit</a> -
