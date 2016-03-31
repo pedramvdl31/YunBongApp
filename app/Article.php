@@ -28,13 +28,25 @@ public static $articles_add = array(
 
     static public function PrepareArticlesForEdit($data) {
 
-    	if (isset($data)) {
-			if(isset($data['description'])) {
-				$data['description_new'] = json_decode($data['description']);
-			}    		
-    	}
-    	return $data;
+        if (isset($data)) {
+            if(isset($data['description'])) {
+                $data['description_new'] = json_decode($data['description']);
+            }           
+        }
+        return $data;
     }
+    
+    static public function PrepareForFinalResult($data) {
+
+        if (isset($data)) {
+            if(isset($data['description'])) {
+                $data['description_new'] = json_decode($data['description']);
+            }           
+        }
+        return $data;
+    }
+
+    
 
     static public function PrepareArticlesForIndex($data) {
 

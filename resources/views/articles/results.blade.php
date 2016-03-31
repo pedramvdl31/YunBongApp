@@ -3,7 +3,8 @@
 
 @stop
 @section('scripts')
-
+<script src="/packages/rrssb/js/rrssb.js"></script>
+<script src="/assets/js/articles/results.js"></script>
 @stop
 
 @section('content')
@@ -139,14 +140,14 @@
 	        {!! Form::close() !!} 
 			@if(isset($articles))
 				@foreach($articles as $artskey => $aval)
-					<div class="article-wrapper clearfix other-results {{$artskey==0?'result-main':'not'}}">
+					<div data="{{$aval->id}}" class="article-wrapper clearfix other-results {{$artskey==0?'result-main':'not'}}">
 						<div class="pull-left" style="margin-right: 28px;position: relative;">
 							<div class="ad-image {{$artskey==0?'ad-image-main':'not'}}" style="background-image: url('/assets/images/articles/prm/{{$aval->image_src}}')">
 	                    	</div>	
 						</div>
 
 	                    <div class="content">
-	                    	<span class="ctitle cdata {{$artskey==0?'main_color':'not'}} pointer">{{$aval->name}}</span>
+	                    	<span class="ctitle cdata {{$artskey==0?'main_color':'not'}} pointer view-this">{{$aval->name}}</span>
 	                    	<br>
 	                    	<span class="datadate ">{!!$aval->created_at_html!!}</span>
 	                    	<p style="margin: 0px 0 5px;">&nbsp</p>
@@ -164,28 +165,30 @@
 		<div id="other-results" style="padding-top: 40px">
 			@if(isset($more_articles))
 				@foreach($more_articles as $arts)
-					<div class="article-wrapper clearfix">
+					<div data="{{$arts->id}}" class="article-wrapper clearfix">
 						<div class="pull-left" style="margin-right: 28px;">
 							<div class="ad-image" style="background-image: url('/assets/images/articles/prm/{{$arts->image_src}}')">
 	                    	</div>	
 						</div>
 
 	                    <div class="content">
-	                    	<span class="ctitle cdata">{{$arts->name}}</span>
+	                    	<span class="ctitle cdata view-this pointer">{{$arts->name}}</span>
 	                    	<br>
 	                    	<span class="datadate">{!!$arts->created_at_html!!}</span>
 	                    	<p style="margin: 0px 0 5px;">&nbsp</p>
 	                    	<span class="cdes cdata">{!!$arts['new_description']!!}</span>
+	                    	<br>
+	                    	<span class="view-this pull-right pointer"><i class="fa fa-arrow-right"></i>&nbsp{{$arts->name}} Net Worth</span>
 	                    </div>
 					</div>
 				@endforeach
 			@endif
-			<div class="fb-like" data-href="http://yunbong.app:8000/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
 		</div>
 	</div>
 	<div class="col-md-4">
 
 		<div class="fb-page" data-href="https://www.facebook.com/Web-Principles-1156692374354506/" data-tabs="timeline" data-width="300" data-height="300" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"></div>
+		<div class="fb-share-button" data-href="https://www.facebook.com/Web-Principles-1156692374354506/" data-layout="button"></div>
 	</div>
 
 @stop

@@ -255,16 +255,50 @@ class ArticlesController extends Controller
             ->with('articles',$articles)
             ->with('more_articles',$more_articles);
     }  
+    public function getSearchRand()
+    {
+        $articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy(DB::raw('RAND()'))->take(10)->get());
+        $more_articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy('id', 'desc')->take(10)->get());
+        return view('articles.results')
+            ->with('layout','layouts.customize_layout')
+            ->with('resultspage','1')
+            ->with('articles',$articles)
+            ->with('more_articles',$more_articles);
+    }  
 
-    /**
-     * /admins/tasks/view.
-     * @param $id - task_id
-     * @return Response
-     */
+    public function getViewOne($id = null)
+    {
+        $articles = Article::find($id);
+        if (isset($articles)) {
+            $name = $articles->name;
+            if (isset($name)) {
+                $new_name = urlencode($name);
+                return Redirect::route('articles_view_this',array($new_name,$id));
+            }
+        }
+    } 
+    public function getViewByName($name = null,$id = null)
+    {
+        $new_name = urldecode($name);
+        $articles = Article::PrepareForFinalResult(Article::find($id));
+        $more_articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy('id', 'desc')->take(10)->get());
+        if (isset($articles,$new_name)) {
+            return view('articles.final_result')
+                ->with('resultspage','1')
+                ->with('articles',$articles)
+                ->with('new_name',$new_name)
+                ->with('layout','layouts.result')
+                ->with('more_articles',$more_articles);
+        }
+    } 
+
+
     public function getView($id = null)
     {
 
     } 
+
+
 
     public function getRemove($id = null)
     {

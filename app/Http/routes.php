@@ -27,9 +27,17 @@ Route::group(['middleware' => 'beforeFilter'], function () {
 
 
 
+
+	//ARTICLES PUBLIC
 	Route::post('articles/search',  ['uses' => 'ArticlesController@postSearch']);
 	Route::post('articles/search-rand',  ['uses' => 'ArticlesController@postSearchRand']);
-	Route::get('/rand-articles', ['as'=>'rand_view','uses'=>'ArticlesController@postSearchRand']);
+	Route::get('/rand-articles', ['as'=>'rand_view','uses'=>'ArticlesController@getSearchRand']);
+	Route::get('view/{id}',  ['as'=>'view-f-article','uses' => 'ArticlesController@getViewOne']);
+	Route::get('view/{name}/{id}',  ['as'=>'articles_view_this','uses' => 'ArticlesController@getViewByName']);
+
+
+
+
 
 	Route::group(['prefix' => 'users'], function () {
 		Route::get('login', ['as'=>'users_login','uses'=>'UsersController@getLogin']);
