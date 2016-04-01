@@ -39,8 +39,9 @@
 
     <div class="form-group {!! $errors->has('celebrity_image') ? 'has-error' : false !!}">
       <img src="/assets/images/profile-images/perm/blank_male.png" alt="..." class="img-rounded profile_img" width="125px">
-      <span class="btn btn-success fileinput-button">
+        <span class="btn btn-success fileinput-button">
             <span>Change Avatar</span>
+            <img class="hide loading-icon" src="/assets/images/icons/gif/loading1.gif" width="20px;">
             <form id="file-form" action="handler.php" method="POST" >
               <input type="file" name="file" id="form-submit-btn">
             </form>

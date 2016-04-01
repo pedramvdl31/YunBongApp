@@ -42,9 +42,9 @@ add = {
 	},
 	events: function() {
 		$('#form-submit-btn').change(function () {
+			$('.loading-icon').removeClass('hide');
 			event.stopPropagation(); // Stop stuff happening
 		    event.preventDefault(); // Totally stop stuff happening
-
 		    // Create a formdata object and add the files
 		    var this_file = new FormData();
 		    $.each(this.files, function(key, value)
@@ -61,6 +61,7 @@ add = {
 			        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
 			        success: function(data, textStatus, jqXHR)
 			        {
+			        	$('.loading-icon').addClass('hide');
 			        	var status = data.status;
 			        	switch (status){
 			        		case 200:
@@ -75,7 +76,7 @@ add = {
 			        },
 			        error: function(jqXHR, textStatus, errorThrown)
 			        {
-
+			        	$('.loading-icon').addClass('hide');
 			        }
 			    });
 		});

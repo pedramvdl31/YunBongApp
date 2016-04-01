@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
                 'id' => '3',
                 'username' => 'josh',
                 'email' => 'example2@example.com',
-                'roles' => '5',
+                'roles' => '1',
                 'password' => bcrypt('110110')
             ]
          ]);
@@ -85,9 +85,9 @@ class DatabaseSeeder extends Seeder
         //ROLEUSER
         DB::table('role_user')->insert([
             [
-                'id' => '3',
+                'id' => '2',
                 'role_id' => '1',
-                'user_id' => '1'
+                'user_id' => '3'
             ]
         ]);
     }

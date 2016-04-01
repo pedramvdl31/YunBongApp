@@ -155,7 +155,7 @@
 	    color: #222222;
 	}
 	.post-des-p{
-	    margin: 0 0 1.25em 0;
+	    margin: 0;
 	    font-weight: inherit;
 	    font-size: inherit;
 	    line-height: inherit;
@@ -241,18 +241,20 @@
 			<span class="netv">{{$articles->salary}}</span>	
 		</div>
 	@endif
-	<div class="post-des">
-		<p class="post-des-p">
-			{!!$articles->description_new!!}
-		</p>
+	<div class="col-md-12" style="padding-left: 0">
+		<div class="main-img-res col-md-6" style="padding-left: 0">
+			<div class="ad-image-main-res" style="background-image: url('/assets/images/articles/prm/{{$articles->image_src}}')">
+	    	</div>	
+		</div>	
+		<div class="post-des">
+			<p class="post-des-p" >
+				{!!$articles->description_new!!}
+			</p>
+		</div>		
 	</div>
+
 	<div class="more-info col-md-12" style="padding-left: 0">
-		<div class="col-md-12" style="padding-left: 0">
-			<div class="main-img-res col-md-6" style="padding-left: 0">
-				<div class="ad-image-main-res" style="background-image: url('/assets/images/articles/prm/{{$articles->image_src}}')">
-		    	</div>	
-			</div>			
-		</div>
+
 
 		<div class="par netw">
 			<span class="mtitle">{{$articles->name}}</span>
@@ -303,15 +305,8 @@
 					<span class="data-text">{{$articles->nicknames}}</span>	
 				</div>
 			@endif
-
-
 		<div class="fb-comments" data-href="http://yunbong.app:8000/view/comments/{{$articles->id}}" data-width="100%" data-numposts="5"></div>
-
-
 		</div>
-
-
-
 	</div>
 
 
