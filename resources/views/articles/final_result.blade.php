@@ -337,8 +337,7 @@
 </div>
 <div class="col-md-4">
 
-	<div class="fb-page" data-href="https://www.facebook.com/Web-Principles-1156692374354506/" data-tabs="timeline" data-width="300" data-height="300" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"></div>
-	<div class="fb-share-button" data-href="https://www.facebook.com/Web-Principles-1156692374354506/" data-layout="button"></div>
+	<div class="fb-page" data-href="https://www.facebook.com/yunbong.net/" data-tabs="timeline" data-width="300" data-height="300" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"></div>
 </div>
 
 @stop
