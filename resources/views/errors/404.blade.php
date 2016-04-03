@@ -1,4 +1,4 @@
-@extends($layout)
+@extends('layouts.customize_layout')
 @section('stylesheets')
 <link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
 {!! Html::style('assets/css/errors/404.css') !!}
@@ -9,7 +9,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 text-center">
             <div class="error-template">
                 <h1>
                     Oops!</h1>

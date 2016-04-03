@@ -70,7 +70,8 @@ public static $articles_add = array(
 				}    	
                 if (isset($dvalue['description'])) {
                     $des_temp = json_decode($dvalue['description']);
-                    $dvalue['new_description'] = strlen($des_temp)>200?substr($des_temp,0,200)."...":$des_temp;
+                    $tmp = strlen($des_temp)>200?substr($des_temp,0,200)."...":$des_temp;
+                    $dvalue['new_description'] = strip_tags($tmp);
                 }    	
     		}
     	}

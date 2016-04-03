@@ -151,7 +151,7 @@
 	                    	<br>
 	                    	<span class="datadate ">{!!$aval->created_at_html!!}</span>
 	                    	<p style="margin: 0px 0 5px;">&nbsp</p>
-	                    	<span class="cdes cdata {{$artskey==0?'main_color':'not'}}">{!!$aval['new_description']!!}</span>
+	                    	<span class="cdes cdata {{$artskey==0?'main_color':'not'}}">{{$aval['new_description']}}</span>
 	                    	<br>
 	                    	<span class="view-this pull-right pointer"><i class="fa fa-arrow-right"></i>&nbsp{{$aval->name}} Net Worth</span>
 	                    </div>
@@ -176,7 +176,7 @@
 	                    	<br>
 	                    	<span class="datadate">{!!$arts->created_at_html!!}</span>
 	                    	<p style="margin: 0px 0 5px;">&nbsp</p>
-	                    	<span class="cdes cdata">{!!$arts['new_description']!!}</span>
+	                    	<span class="cdes cdata">{{$arts['new_description']}}</span>
 	                    	<br>
 	                    	<span class="view-this pull-right pointer"><i class="fa fa-arrow-right"></i>&nbsp{{$arts->name}} Net Worth</span>
 	                    </div>
