@@ -144,7 +144,7 @@
 		font-family: inherit;
 		font-weight: 700;
 		color: #0d6161;
-		font-size: 34px !important;
+		font-size: 30px !important;
     	line-height: 38px !important;
 	}
 	.post-des{
@@ -226,36 +226,104 @@
 	    cursor: pointer;
 	    border-radius: 2px;
 	}
+
+	#single__bar {
+    list-style: none;
+    margin: 0 0 12px 0;
+    padding: 0;
+    display: table;
+    width: 100%;
+	}
+	#single__bar > li {
+    float: left;
+    padding-right: 6px;
+    font-family: 'Titillium Web', Georgia, serif;
+    font-size: 14px;
+    line-height: 14px;
+	}
+	#single__bar > li.facebook > .anchor {
+    	background-color: #365899;
+	}
+	#single__bar > li .anchor {
+    position: relative;
+    display: block;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    font-weight: 600;
+    color: #ffffff;
+    padding: 14px;
+    border-radius: 2px;
+	}
+	a {
+    color: #008080;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+	}
+	#single__bar > li.icon.share > .anchor:before {
+    top: 0;
+    left: 0;
+    width: 28px;
+    height: 35px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 20px 20px;
+	}
+
+	#single__bar > li.icon > .anchor:before {
+    content: ".";
+    text-indent: -9999px;
+    font-size: 1px;
+    color: transparent;
+    position: absolute;
+    display: block;
+	}
+	.btn-bar{
+		padding: 10px 0 18px 0;
+	}
+	.btn-rnd-search{
+		background-color: #008080 !important;
+    	font-size: 17px !important;
+    	font-weight: 700 !important;
+    	text-transform: uppercase !important;
+    	color: white;
+	}
+	.btn-rnd-search:hover, .btn-rnd-search:focus{
+    	color: white !important;
+	}
 </style>
-<div class="col-md-8">
+<div class="col-md-9 clearfix">
 	<span class="ptitle">{{$articles->name}} Net Worth</span>
 	<span>How much is {{$articles->name}} Worth? in Richest Businessmen › Richest Billionaires</span>
-	<p>&nbsp</p>
-	<div class="netw">
-		<span class="ntitle">{{$articles->name}} net worth:</span>
-		<span class="netv">{{$articles->net}}</span>	
+	<!-- Your share button code -->
+
+
+	<div class="fb-share-button" 
+		data-href="http://yunbong.app:8000/view/bill+gates/1" 
+		data-layout="button_count">
 	</div>
-	@if(isset($articles->salary) && $articles->salary!='')
-		<div class="netw">
-			<span class="ntitle">{{$articles->name}} Salary:</span>
-			<span class="netv">{{$articles->salary}}</span>	
-		</div>
-	@endif
-	<div class="col-md-12" style="padding-left: 0">
-		<div class="main-img-res col-md-6" style="padding-left: 0">
+<!-- 	<ul id="single__bar">
+		<li class="icon share facebook">
+			<a href="//www.facebook.com/sharer.php?u=http%3A%2F%2Fbit.ly%2F1icK8AE" class="btn btn-primary" title="Share on Facebook" data-popup-width="500" data-popup-height="500"><i class="fa fa-lg fa-facebook"></i>&nbsp&nbspShare on Facebook</a>
+		</li>
+		<li class="icon share facebook">
+			<a href="//www.facebook.com/sharer.php?u=http%3A%2F%2Fbit.ly%2F1icK8AE" class="btn btn-primary" title="Share on Facebook" data-popup-width="500" data-popup-height="500"><i class="fa fa-lg fa-facebook"></i>&nbsp&nbspShare on Facebook</a>
+		</li>
+	</ul> -->
+	<div class="btn-bar col-md-12 clearfix" style="padding-left: 0;padding-right: 0">
+		<a href="/rand-articles" class="btn btn-rnd-search pull-right">
+			<span>Random Celebrity</span> 
+		<img style="background: white;margin-top: -3px;" width="24px" height="24px" src="/assets/images/icons/dice.png">
+		</a>
+	</div>
+
+	<div class="col-md-5" style="padding-left: 0">
+		<div class="main-img-res col-md-12" style="padding-left: 0">
 			<div class="ad-image-main-res" style="background-image: url('/assets/images/articles/prm/{{$articles->image_src}}')">
 	    	</div>	
 		</div>	
-		<div class="post-des">
-			<p class="post-des-p" >
-				{!!$articles->description_new!!}
-			</p>
-		</div>		
-	</div>
-
-	<div class="more-info col-md-12" style="padding-left: 0">
-
-
 		<div class="par netw">
 			<span class="mtitle">{{$articles->name}}</span>
 			@if(isset($articles->title) && $articles->title!='')
@@ -305,11 +373,32 @@
 					<span class="data-text">{{$articles->nicknames}}</span>	
 				</div>
 			@endif
-		<div class="fb-comments" data-href="http://yunbong.app:8000/view/comments/{{$articles->id}}" data-width="100%" data-numposts="5"></div>
 		</div>
 	</div>
+	<div class="more-info col-md-7" style="padding-left: 0">
+		<div class="netw">
+			<span class="ntitle">{{$articles->name}} net worth:</span>
+			<span class="netv">{{$articles->net}}</span>	
+		</div>
+		@if(isset($articles->salary) && $articles->salary!='')
+			<div class="netw">
+				<span class="ntitle">{{$articles->name}} Salary:</span>
+				<span class="netv">{{$articles->salary}}</span>	
+			</div>
+		@endif
+		<div class="post-des">
+			<p class="post-des-p" >
+				{!!$articles->description_new!!}
+			</p>
+		</div>	
+	</div>
+	<div class="fb-comments" data-href="http://yunbong.app:8000/view/comments/{{$articles->id}}" data-width="100%" data-numposts="5"></div>
+</div>
+<div class="col-md-3">
+	<div class="fb-page" data-href="https://www.facebook.com/yunbong.net/" data-tabs="timeline" data-width="300" data-height="300" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"></div>
+</div>
 
-
+<div class="col-md-12">
 	<br><span id="no_results">Take a look at these pages:</span><br>
 	<span class="datadate">Our latest articles on the richest celebrities</span><br>
 	<div id="other-results" style="padding-top: 40px">
@@ -334,10 +423,6 @@
 			@endforeach
 		@endif
 	</div>
-</div>
-<div class="col-md-4">
-
-	<div class="fb-page" data-href="https://www.facebook.com/yunbong.net/" data-tabs="timeline" data-width="300" data-height="300" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"></div>
 </div>
 
 @stop

@@ -41,6 +41,10 @@ public static $articles_add = array(
         if (isset($data)) {
             if(isset($data['description'])) {
                 $data['description_new'] = json_decode($data['description']);
+
+                $des_temp = json_decode($data['description']);
+                $tmp = strlen($des_temp)>200?substr($des_temp,0,200)."...":$des_temp;
+                $data['short_description'] = strip_tags($tmp);
             }           
         }
         return $data;

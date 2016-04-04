@@ -6,6 +6,10 @@ $(document).ready(function(){
 results = {
 
 	pageLoad: function() {
+		keep_image_width();
+		$(window).resize(function(){
+			keep_image_width();
+		});
 		$.ajaxSetup({
 			headers: { 'X-CSRF-Token' : $('meta[name=csrf-token]').attr('content') }
 		});
@@ -64,3 +68,9 @@ function resultsf(url)
     return(!obj || $.trim(obj) === "");
   };
 })(jQuery);
+
+function keep_image_width()
+{
+	var i_width = $('.ad-image-main-res').css('width');
+	$('.ad-image-main-res').css('height',i_width);
+}
