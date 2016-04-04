@@ -297,13 +297,23 @@
 <div class="col-md-9 clearfix">
 	<span class="ptitle">{{$articles->name}} Net Worth</span>
 	<span>How much is {{$articles->name}} Worth? in Richest Businessmen › Richest Billionaires</span>
-	<!-- Your share button code -->
 
-
-	<div class="fb-share-button" 
-		data-href="http://yunbong.app:8000/view/bill+gates/1" 
-		data-layout="button_count">
-	</div>
+<p>{!!Request::root()!!}</p>
+<a title="send to Facebook" 
+  href="https://www.facebook.com/dialog/feed?
+		  app_id=1124383754261581&amp;
+		  display=popup&amp;
+		  caption=Yunbong.net&amp;
+		  description={{$articles['short_description']}}&amp;
+		  name={{$articles->name}}&nbspNet&nbspWorth&amp;
+		  link={!!Request::url()!!}&amp;
+		  redirect_uri={!!Request::url()!!}&amp;
+		  picture={!!Request::root()!!}/assets/images/articles/prm/{{$articles->image_src}}"
+  target="_blank">
+  <span>
+    <img width="14" height="14" src="'icons/fb.gif" alt="Facebook" /> Facebook 
+  </span>
+</a>
 <!-- 	<ul id="single__bar">
 		<li class="icon share facebook">
 			<a href="//www.facebook.com/sharer.php?u=http%3A%2F%2Fbit.ly%2F1icK8AE" class="btn btn-primary" title="Share on Facebook" data-popup-width="500" data-popup-height="500"><i class="fa fa-lg fa-facebook"></i>&nbsp&nbspShare on Facebook</a>
