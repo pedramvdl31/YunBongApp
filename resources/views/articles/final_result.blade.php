@@ -446,7 +446,7 @@
 			</p>
 		</div>	
 	</div>
-	<div class="fb-comments" data-href="http://yunbong.app:8000/view/comments/{{$articles->id}}" data-width="100%" data-numposts="5"></div>
+	<div class="fb-comments" data-href="http://yunbong.app:8000/view/comments/{{$articles->code}}" data-width="100%" data-numposts="5"></div>
 </div>
 <div class="col-md-3">
 	<div class="fb-page" data-href="https://www.facebook.com/yunbong.net/" data-tabs="timeline" data-width="300" data-height="300" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"></div>
