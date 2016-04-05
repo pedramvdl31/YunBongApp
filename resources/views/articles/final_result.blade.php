@@ -5,7 +5,6 @@
 @section('scripts')
 	<script src="/packages/rrssb/js/rrssb.js"></script>
 	<script src="/assets/js/articles/results.js"></script>
-	
 @stop
 
 @section('content')
@@ -285,7 +284,6 @@
 	}
 	.btn-rnd-search{
 		background-color: #008080 !important;
-    	font-size: 17px !important;
     	font-weight: 700 !important;
     	text-transform: uppercase !important;
     	color: white;
@@ -293,44 +291,90 @@
 	.btn-rnd-search:hover, .btn-rnd-search:focus{
     	color: white !important;
 	}
+	.link-color{
+		    color: #0d6161;
+	}
+	/*==========  Non-Mobile First Method  ==========*/
+
+    /* Large Devices, Wide Screens */
+    @media only screen and (max-width : 1200px) {
+
+    }
+
+    /* Medium Devices, Desktops */
+    @media only screen and (max-width : 992px) {
+
+    }
+
+    /* Small Devices, Tablets */
+    @media only screen and (max-width : 768px) {
+
+    }
+
+    /* Extra Small Devices, Phones */ 
+    @media only screen and (max-width : 480px) {
+    	.my-btns{
+    		width: 100%;
+    	}
+		.btn-rnd-search{
+			margin-top: 10px;
+		}
+		.my-cols{
+			padding-left: 0;
+			padding-right: 0;
+		}
+
+    }
+
+    /* Custom, iPhone Retina */ 
+    @media only screen and (max-width : 320px) {
+        .my-btns{
+    		width: 100%;
+    	}
+    	.btn-rnd-search{
+			margin-top: 10px;
+		}
+		.my-cols{
+			padding-left: 0;
+			padding-right: 0;
+		}
+    }
+
 </style>
 <div class="col-md-9 clearfix">
 	<span class="ptitle">{{$articles->name}} Net Worth</span>
-	<span>How much is {{$articles->name}} Worth? in Richest Businessmen › Richest Billionaires</span>
+	<span>How much is {{$articles->name}} Worth? in <span class="link-color">Richest Businessmen</span> › <span class="link-color">Richest Billionaires</span></span>
 
-<p>{!!Request::root()!!}</p>
-<a title="send to Facebook" 
-  href="https://www.facebook.com/dialog/feed?
-		  app_id=1124383754261581&amp;
-		  display=popup&amp;
-		  caption=Yunbong.net&amp;
-		  description={{$articles['short_description']}}&amp;
-		  name={{$articles->name}}&nbspNet&nbspWorth&amp;
-		  link={!!Request::url()!!}&amp;
-		  redirect_uri={!!Request::url()!!}&amp;
-		  picture={!!Request::root()!!}/assets/images/articles/prm/{{$articles->image_src}}"
-  target="_blank">
-  <span>
-    <img width="14" height="14" src="'icons/fb.gif" alt="Facebook" /> Facebook 
-  </span>
-</a>
-<!-- 	<ul id="single__bar">
-		<li class="icon share facebook">
-			<a href="//www.facebook.com/sharer.php?u=http%3A%2F%2Fbit.ly%2F1icK8AE" class="btn btn-primary" title="Share on Facebook" data-popup-width="500" data-popup-height="500"><i class="fa fa-lg fa-facebook"></i>&nbsp&nbspShare on Facebook</a>
-		</li>
-		<li class="icon share facebook">
-			<a href="//www.facebook.com/sharer.php?u=http%3A%2F%2Fbit.ly%2F1icK8AE" class="btn btn-primary" title="Share on Facebook" data-popup-width="500" data-popup-height="500"><i class="fa fa-lg fa-facebook"></i>&nbsp&nbspShare on Facebook</a>
-		</li>
-	</ul> -->
+
+
 	<div class="btn-bar col-md-12 clearfix" style="padding-left: 0;padding-right: 0">
-		<a href="/rand-articles" class="btn btn-rnd-search pull-right">
-			<span>Random Celebrity</span> 
-		<img style="background: white;margin-top: -3px;" width="24px" height="24px" src="/assets/images/icons/dice.png">
+
+
+		<a class="btn btn-primary my-btns" title="send to Facebook" 
+	  		href="https://www.facebook.com/dialog/feed?
+			  app_id=1124383754261581&amp;
+			  display=popup&amp;
+			  caption=Yunbong.net&amp;
+			  description={{$articles['short_description']}}&amp;
+			  name={{$articles->name}}&nbspNet&nbspWorth&amp;
+			  link={!!Request::url()!!}&amp;
+			  redirect_uri={!!Request::url()!!}&amp;
+			  picture={!!Request::root()!!}/assets/images/articles/prm/{{$articles->image_src}}">
+			  <i class="fa fa-lg fa-facebook"></i>
+			  &nbsp&nbspShare on Facebook
 		</a>
+
+
+		<a href="/rand-articles" class="btn btn-rnd-search pull-right my-btns">
+			<span>Random</span> 
+		<img style="background: white;margin-top: -3px;" width="21px" height="21px" src="/assets/images/icons/dice.png">
+		</a>
+
+
 	</div>
 
-	<div class="col-md-5" style="padding-left: 0">
-		<div class="main-img-res col-md-12" style="padding-left: 0">
+	<div class="col-md-5 my-cols" style="padding-left: 0">
+		<div class="main-img-res col-md-12 my-cols" style="padding-left: 0">
 			<div class="ad-image-main-res" style="background-image: url('/assets/images/articles/prm/{{$articles->image_src}}')">
 	    	</div>	
 		</div>	

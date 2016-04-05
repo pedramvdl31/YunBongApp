@@ -88,7 +88,10 @@ class ArticlesController extends Controller
      */
     public function postAdd()
     {       
-        Job::dump(Input::all());
+        do {
+            $rands = Job::generateRandomString(7);
+        } while ( count(Article::where('code',$rands)->first()) != 0 );
+
         $validator = Validator::make(Input::all(), Article::$articles_add);
         if ($validator->passes()) {
             $_img = Input::get('celebrity_image');
@@ -112,6 +115,7 @@ class ArticlesController extends Controller
             }
 
             $articles_data = new Article;
+            $articles_data->code = $rands;
             $articles_data->name = Input::get('name');
             $articles_data->title = Input::get('title');
             $articles_data->nicknames = Input::get('nicknames');
@@ -268,14 +272,20 @@ class ArticlesController extends Controller
 
     public function getViewOne($id = null)
     {
-        $articles = Article::find($id);
-        if (isset($articles)) {
-            $name = $articles->name;
-            if (isset($name)) {
-                $new_name = urlencode($name);
-                return Redirect::route('articles_view_this',array($new_name,$id));
+        if (isset($id)) {
+            $articles = Article::PrepareForFinalResult(Article::find($id));
+            if (isset($articles)) {
+                $more_articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy('id', 'desc')->take(10)->get());
+                if (isset($articles)) {
+                    return view('articles.final_result')
+                        ->with('resultspage','1')
+                        ->with('articles',$articles)
+                        ->with('layout','layouts.result')
+                        ->with('more_articles',$more_articles);
+                }
             }
         }
+        
     } 
     public function getViewByName($name = null,$id = null)
     {

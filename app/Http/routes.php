@@ -20,8 +20,9 @@ Route::group(['middleware' => 'beforeFilter'], function () {
 	Route::get('/videos',  ['as'=>'videos_page', 'uses' => 'HomeController@getVideos']);
 
 	Route::get('/admins',  ['as'=>'admins_index', 'uses' => 'AdminsController@getIndex']);
-	Route::get('registration', ['as'=>'registration_view','uses'=>'UsersController@getRegistration']);
-	Route::post('registration', ['uses'=>'UsersController@postRegistration']);
+	// Route::get('registration', ['as'=>'registration_view','uses'=>'UsersController@getRegistration']);
+	// Route::post('registration', ['uses'=>'UsersController@postRegistration']);
+	
 	Route::post('users/return-users',  ['uses' => 'UsersController@postReturnUsers', 'middleware' => ['acl:admins/acl/view']]);
 	Route::post('users/user-info',  ['uses' => 'UsersController@postUserInfo', 'middleware' => ['acl:admins/acl/view']]);
 
