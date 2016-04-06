@@ -38,7 +38,16 @@
 		    font-weight: normal;
 		    font-size: 15px;
 		    line-height: 18px;
-		    color: #222222;
+		    color: #cfcfcf !important;
+		    font-family: 'Titillium Web', sans-serif;
+		}		
+		.cdes-other{
+			margin-bottom: 12px;
+		    font-family: inherit;
+		    font-weight: normal;
+		    font-size: 15px;
+		    line-height: 18px;
+		    color: black;
 		    font-family: 'Titillium Web', sans-serif;
 		}
 		.cdata{
@@ -62,7 +71,7 @@
 			padding: 20px 10px 20px 20px;
 		}
 		.main_color{
-			color: white !important;
+			color: white;
 		}
 		.star-wrapper{
 			font-size: 42px;
@@ -122,7 +131,7 @@
 		        <div class="input-group">
 		          <input name="searched_text" name="searched-content" type="text" class="form-control" id="sform-input" placeholder="Search for a Celebrity...">
 		          <span class="input-group-btn">
-		            <button class="btn btn-primary" type="submit" >Go!</button>
+		            <button class="btn btn-primary my-btn-primary" type="submit" >Go!</button>
 		          </span>
 		        </div><!-- /input-group -->
 	        {!! Form::close() !!} 
@@ -134,27 +143,35 @@
 		        <div class="input-group" style="margin-bottom: 20px">
 		          <input name="searched_text" name="searched-content" type="text" class="form-control" id="sform-input" placeholder="Search for a Celebrity...">
 		          <span class="input-group-btn">
-		            <button class="btn btn-primary" type="submit" >Go!</button>
+		            <button class="btn btn-primary my-btn-primary" type="submit" >Go!</button>
 		          </span>
 		        </div><!-- /input-group -->
 	        {!! Form::close() !!} 
 			@if(isset($articles))
 				@foreach($articles as $artskey => $aval)
-					<div data="{{$aval->id}}" class="article-wrapper clearfix other-results {{$artskey==0?'result-main':'not'}}">
-						<div class="pull-left" style="margin-right: 28px;position: relative;">
-							<div class="ad-image {{$artskey==0?'ad-image-main':'not'}}" style="background-image: url('/assets/images/articles/prm/{{$aval->image_src}}')">
-	                    	</div>	
+					<div data="{{$aval->id}}" class="article-wrapper clearfix other-results {{$artskey==0?'result-main':'not'}} col-md-12 m_col">
+
+						<div class="col-md-4 m_col">
+							<div class="pull-left" style="margin-right: 28px;position: relative;">
+								<div class="ad-image {{$artskey==0?'ad-image-main':'not'}}" style="background-image: url('/assets/images/articles/prm/{{$aval->image_src}}')">
+		                    	</div>	
+							</div>
 						</div>
 
-	                    <div class="content">
-	                    	<span class="ctitle cdata {{$artskey==0?'main_color':'not'}} pointer view-this">{{$aval->name}}</span>
-	                    	<br>
-	                    	<span class="datadate ">{!!$aval->created_at_html!!}</span>
-	                    	<p style="margin: 0px 0 5px;">&nbsp</p>
-	                    	<span class="cdes cdata {{$artskey==0?'main_color':'not'}}">{{$aval['new_description']}}</span>
-	                    	<br>
-	                    	<span class="view-this pull-right pointer"><i class="fa fa-arrow-right"></i>&nbsp{{$aval->name}} Net Worth</span>
-	                    </div>
+						<div class="col-md-8 m_col">
+							<div class="content">
+		                    	<span class="ctitle cdata {{$artskey==0?'main_color':'not'}} pointer view-this">{{$aval->name}}</span>
+		                    	<br>
+		                    	@if(isset($aval->title))
+		                    		<span class="datadate ">{!!$aval->title!!}</span>
+		                    	@endif
+		                    	<p style="margin: -6px 0;">&nbsp</p>
+		                    	<span class="cdes cdata {{$artskey==0?'main_color':'not'}}">{{$aval['new_description']}}</span>
+		                    	<p style="margin: -6px 0;">&nbsp</p>
+		                    	<span class="view-this pointer"><i style="color: black" class="fa fa-arrow-right"></i>&nbsp{{$aval->name}} Net Worth</span>
+		                    </div>
+						</div>
+
 
 					</div>
 				@endforeach
@@ -166,20 +183,25 @@
 			@if(isset($more_articles))
 				@foreach($more_articles as $arts)
 					<div data="{{$arts->id}}" class="article-wrapper clearfix">
-						<div class="pull-left" style="margin-right: 28px;">
-							<div class="ad-image" style="background-image: url('/assets/images/articles/prm/{{$arts->image_src}}')">
-	                    	</div>	
+						<div class="col-md-4 m_col">
+							<div class="pull-left" style="margin-right: 28px;">
+								<div class="ad-image" style="background-image: url('/assets/images/articles/prm/{{$arts->image_src}}')">
+		                    	</div>	
+							</div>
 						</div>
-
-	                    <div class="content">
-	                    	<span class="ctitle cdata view-this pointer">{{$arts->name}}</span>
-	                    	<br>
-	                    	<span class="datadate">{!!$arts->created_at_html!!}</span>
-	                    	<p style="margin: 0px 0 5px;">&nbsp</p>
-	                    	<span class="cdes cdata">{{$arts['new_description']}}</span>
-	                    	<br>
-	                    	<span class="view-this pull-right pointer"><i class="fa fa-arrow-right"></i>&nbsp{{$arts->name}} Net Worth</span>
-	                    </div>
+						<div class="col-md-8 m_col">
+		                    <div class="content">
+		                    	<span class="ctitle cdata view-this pointer">{{$arts->name}}</span>
+		                    	<br>
+		                    	@if(isset($arts->title))
+		                    		<span class="datadate ">{!!$arts->title!!}</span>
+		                    	@endif
+		                    	<p style="margin: -6px 0;">&nbsp</p>
+		                    	<span class="cdes-other cdata">{{$arts['new_description']}}</span>
+		                    	<p style="margin: -6px 0;">&nbsp</p>
+		                    	<span class="view-this pointer"><i class="fa fa-arrow-right"></i>&nbsp{{$arts->name}} Net Worth</span>
+		                    </div>
+						</div>
 					</div>
 				@endforeach
 			@endif

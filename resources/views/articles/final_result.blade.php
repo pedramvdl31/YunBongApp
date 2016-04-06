@@ -350,7 +350,7 @@
 	<div class="btn-bar col-md-12 clearfix" style="padding-left: 0;padding-right: 0">
 
 
-		<a class="btn btn-primary my-btns" title="send to Facebook" 
+		<a  target="_blank" class="btn btn-primary my-btns fb-share" title="send to Facebook" 
 	  		href="https://www.facebook.com/dialog/feed?
 			  app_id=1124383754261581&amp;
 			  display=popup&amp;

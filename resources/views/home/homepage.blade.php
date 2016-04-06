@@ -16,7 +16,7 @@
 		        <div class="input-group">
 		          <input name="searched_text" name="searched-content" type="text" class="form-control" id="sform-input" placeholder="Search for a Celebrity...">
 		          <span class="input-group-btn">
-		            <button class="btn btn-primary" type="submit" >Go!</button>
+		            <button class="btn btn-primary my-btn-primary" type="submit" >Go!</button>
 		          </span>
 		        </div><!-- /input-group -->
 	        {!! Form::close() !!} 

@@ -67,7 +67,7 @@
               <div class="form-group">
                 <input name="searched_text" type="text" class="form-control" placeholder="Search for a Celebrity...">
               </div>
-              <button type="submit" class="btn btn-default">Go!</button>
+              <button type="submit" class="btn btn-default my-btn-primary">Go!</button>
             {!! Form::close() !!} 
           @endif
           <ul class="nav navbar-nav navbar-right">

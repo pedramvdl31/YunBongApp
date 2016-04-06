@@ -236,14 +236,37 @@ class ArticlesController extends Controller
     {
         $search_text = Input::get('searched_text');
         if (isset($search_text) && $search_text!='') {
-            $articles = Article::PrepareForResultsPage(Article::where('status',1)->where('name', 'like', $search_text)->get());
-            $more_articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy('id', 'desc')->take(10)->get());
-            return view('articles.results')
-                ->with('layout','layouts.customize_layout')
-                ->with('resultspage','1')
-                ->with('articles',$articles)
-                ->with('search_text',$search_text)
-                ->with('more_articles',$more_articles);
+            $articles_array = array();
+            $n_search_array = explode(' ', $search_text);
+            $articles = Article::where('status',1)->get();
+            foreach ($articles as $ak => $av) {
+                $exist = 0;
+                $new_name_array = explode(' ', $av['name']);
+                if (isset($new_name_array)) {
+                    foreach ($new_name_array as $nk => $nv) {
+                        if (isset($n_search_array)) {
+                            foreach ($n_search_array as $nsak => $nsav) {
+                                if (strtolower($nv) == strtolower($nsav)) {
+                                    $exist = 1;
+                                }
+                            }
+                        }
+                    }
+                }
+                if ($exist == 1) {
+                    array_push($articles_array, $av->id);
+                }
+            }
+
+                $articles = Article::PrepareForResultsPage(Article::where('status',1)->whereIn('id', $articles_array)->get());
+                $more_articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy('id', 'desc')->take(10)->get());
+                return view('articles.results')
+                    ->with('layout','layouts.customize_layout')
+                    ->with('resultspage','1')
+                    ->with('articles',$articles)
+                    ->with('search_text',$search_text)
+                    ->with('more_articles',$more_articles);
+
         }
         Flash::error('Seatch query cannot be empty!');
         return Redirect::route('home_index');
