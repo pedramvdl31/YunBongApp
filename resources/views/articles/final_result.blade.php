@@ -467,7 +467,9 @@
                     <div class="content">
                     	<span class="ctitle cdata view-this pointer">{{$arts->name}}</span>
                     	<br>
-                    	<span class="datadate">{!!$arts->created_at_html!!}</span>
+                    	@if(isset($arts->title))
+                    		<span class="datadate ">{!!$arts->title!!}</span>
+                    	@endif
                     	<p style="margin: 0px 0 5px;">&nbsp</p>
                     	<span class="cdes cdata">{!!$arts['new_description']!!}</span>
                     	<br>
