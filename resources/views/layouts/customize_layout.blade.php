@@ -47,7 +47,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Yunbong</a>
+          <a class="navbar-brand" href="/">Yunbong</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -56,17 +56,11 @@
             @if(Auth::check())
               <li><a href="/admins">Admin Edit <i class="glyphicon glyphicon-cog"></i></a></li>
             @endif
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Articles <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="/rand-articles">View Random Articles</a></li>
-              </ul>
-            </li>
           </ul>
           @if(isset($resultspage))
             {!! Form::open(array('action' => 'ArticlesController@postSearch', 'class'=>'navbar-form navbar-left','role'=>"form")) !!}
               <div class="form-group">
-                <input name="searched_text" type="text" class="form-control" placeholder="Search for a Celebrity...">
+                <input name="searched_text" type="text" class="form-control" placeholder="이름을 입력해 주세요">
               </div>
               <button type="submit" class="btn btn-default">Go!</button>
             {!! Form::close() !!} 
@@ -74,8 +68,6 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="https://www.facebook.com/yunbong.net/"><i class="fa fa-lg fa-facebook"></i></a></li>
             <li><a href="#"><i class="fa fa-lg fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fa fa-lg fa-google-plus"></i></a></li>
-            <li><a href="#"><i class="fa fa-lg fa-linkedin"></i></a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->

@@ -268,7 +268,7 @@ class ArticlesController extends Controller
                     ->with('more_articles',$more_articles);
 
         }
-        Flash::error('Seatch query cannot be empty!');
+        Flash::error('Search query cannot be empty!');
         return Redirect::route('home_index');
     }  
 

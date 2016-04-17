@@ -37,7 +37,20 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head> 
-
+<style type="text/css">
+  .btn-default {
+    text-shadow: 0 1px 0 #fff;
+    background-image: -webkit-linear-gradient(top,#fff 0,#e0e0e0 100%);
+    background-image: -o-linear-gradient(top,#fff 0,#e0e0e0 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#fff),to(#e0e0e0));
+    background-image: linear-gradient(to bottom,#fff 0,#e0e0e0 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe0e0e0', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    background-repeat: repeat-x;
+    border-color: #dbdbdb;
+    border-color: #ccc;
+}
+</style>
 <body data-spy="scroll">
     <nav class="navbar navbar-default my-navbar">
       <div class="container-fluid">
@@ -49,23 +62,17 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Yunbong</a>
+          <a class="navbar-brand" href="/">Yunbong</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Articles <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="/rand-articles">View Random Articles</a></li>
-              </ul>
-            </li>
           </ul>
           @if(isset($resultspage))
             {!! Form::open(array('action' => 'ArticlesController@postSearch', 'class'=>'navbar-form navbar-left','role'=>"form")) !!}
               <div class="form-group">
-                <input name="searched_text" type="text" class="form-control" placeholder="Search for a Celebrity...">
+                <input name="searched_text" type="text" class="form-control" placeholder="이름을 입력해 주세요">
               </div>
               <button type="submit" class="btn btn-default my-btn-primary">Go!</button>
             {!! Form::close() !!} 
@@ -73,8 +80,6 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><i class="fa fa-lg fa-facebook"></i></a></li>
             <li><a href="#"><i class="fa fa-lg fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fa fa-lg fa-google-plus"></i></a></li>
-            <li><a href="#"><i class="fa fa-lg fa-linkedin"></i></a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->

@@ -14,7 +14,7 @@
 	    <div class="" id="search-input">
 	        {!! Form::open(array('action' => 'ArticlesController@postSearch', 'class'=>'sform','role'=>"form")) !!}
 		        <div class="input-group">
-		          <input name="searched_text" name="searched-content" type="text" class="form-control" id="sform-input" placeholder="Search for a Celebrity...">
+		          <input name="searched_text" name="searched-content" type="text" class="form-control" id="sform-input" placeholder="이름을 입력해 주세요">
 		          <span class="input-group-btn">
 		            <button class="btn btn-primary my-btn-primary" type="submit" >Go!</button>
 		          </span>
@@ -23,7 +23,7 @@
 	        
 	        {!! Form::open(array('action' => 'ArticlesController@postSearchRand', 'class'=>'','role'=>"form")) !!}
 		        <div id="sbtn">
-		            <button class="btn btn-danger">Surpirse me!</button>
+		            <button class="btn btn-danger">내가 골라줄게!</button>
 		        </div>
 	        {!! Form::close() !!} 
 	    </div>  

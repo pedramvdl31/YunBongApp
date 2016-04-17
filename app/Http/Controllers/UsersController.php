@@ -275,45 +275,43 @@ public function postUserAuth()
 
 public function postSendFile()
 {
-    if(Request::ajax()){
-        $status = 400;
-        $imagePath = "assets".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."articles".DIRECTORY_SEPARATOR."tmp".DIRECTORY_SEPARATOR;
-        $imagename = $_FILES[0]['name'];
-        $imagetemp = $_FILES[0]['tmp_name'];
-        $image_types = $_FILES[0]['type'];
-        $type_array = explode('/', $image_types);
-        $type = $type_array[1];
+    $status = 400;
+    $imagePath = "assets".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."articles".DIRECTORY_SEPARATOR."tmp".DIRECTORY_SEPARATOR;
+    $imagename = $_FILES[0]['name'];
+    $imagetemp = $_FILES[0]['tmp_name'];
+    $image_types = $_FILES[0]['type'];
+    $type_array = explode('/', $image_types);
+    $type = $type_array[1];
 
-        $rand = Job::generateRandomString(5);
-        $time = time();
-        $final_path = $rand.'_'.$time.'.'.$type;
+    $rand = Job::generateRandomString(5);
+    $time = time();
+    $final_path = $rand.'_'.$time.'.'.$type;
 
-            // check if $folder is a directory
-        if( ! \File::isDirectory($imagePath) ) {
-            \File::makeDirectory($imagePath, 493, true);
-        }
-        if (!is_writable(dirname($imagePath))) {
-            $status = 401;
-            return Response::json(array(
-                "error" => 'Destination Unwritable'
-                ));
-        }
-        $newpath = $imagePath.$final_path;
-        if (move_uploaded_file($imagetemp,$newpath)) {
-            $viewpath = DIRECTORY_SEPARATOR.$newpath;
-            return Response::json(array(
-                'status' => 200,
-                'newpath' => $viewpath,
-                'image_name' => $final_path,
-                ));
-        } else {
-            $status = 402;
-        }
+        // check if $folder is a directory
+    if( ! \File::isDirectory($imagePath) ) {
+        \File::makeDirectory($imagePath, 493, true);
+    }
+    if (!is_writable(dirname($imagePath))) {
+        $status = 401;
+        return Response::json(array(
+            "error" => 'Destination Unwritable'
+            ));
+    }
+    $newpath = $imagePath.$final_path;
+    if (move_uploaded_file($imagetemp,$newpath)) {
+        $viewpath = DIRECTORY_SEPARATOR.$newpath;
+        return Response::json(array(
+            'status' => 200,
+            'newpath' => $viewpath,
+            'image_name' => $final_path,
+            ));
+    } else {
+        $status = 402;
+    }
 
-     return Response::json(array(
-        'error' => 'error'
-        ));
- }
+ return Response::json(array(
+    'error' => 'error'
+    ));
 }
 
 
