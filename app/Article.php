@@ -38,11 +38,31 @@ public static $articles_add = array(
 
         if (isset($data)) {
             if(isset($data['description'])) {
-                $data['description_new'] = json_decode($data['description']);
 
-                $des_temp = json_decode($data['description']);
-                $tmp = strlen($des_temp)>200?substr($des_temp,0,200)."...":$des_temp;
-                $data['short_description'] = strip_tags($tmp);
+
+                    $des_t_4 = '';
+                    $slugtxt = isset($data['description'])?$data['description']:'';
+                    //PARSE FIRST SECION
+                    $url2 = 'http://en.wikipedia.org/w/api.php?format=json&action=query&exintro=&explaintext=&titles='.$slugtxt.'&prop=extracts&indexpageids';
+
+                    $json3 = file_get_contents($url2);
+
+
+                    if (isset($json3)) {
+                        $data3 = json_decode($json3);
+                        if (isset($data3)) {
+                            if (isset($data3->query->pageids[0])) {
+                                $pageid = $data3->query->pageids[0];
+                                if (isset($data3->query->pages->$pageid->extract)) {
+                                    $des_t_4 = $data3->query->pages->$pageid->extract;
+                                }
+                            }
+                        }
+                    }
+                    $tmp = strlen($des_t_4)>200?substr($des_t_4,0,200)."...":$des_t_4;
+                    $data['short_description'] = strip_tags($tmp);
+
+
             }           
         }
         return $data;
