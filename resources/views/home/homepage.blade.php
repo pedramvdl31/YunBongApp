@@ -10,7 +10,6 @@
     <div class="text-center" id="my-title">
         <img src="/assets/images/brand_image/perm/b1.jpg">
     </div>
-
 	    <div class="" id="search-input">
 	        {!! Form::open(array('action' => 'ArticlesController@postSearch', 'class'=>'sform','role'=>"form")) !!}
 		        <div class="input-group">

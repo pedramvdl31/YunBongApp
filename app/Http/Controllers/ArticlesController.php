@@ -127,7 +127,7 @@ class ArticlesController extends Controller
             $articles_data->weight = Input::get('weight');
             $articles_data->ethnicity = Input::get('ethnicity');
             $articles_data->salary = Input::get('salary');
-            $articles_data->description = json_encode(Input::get('description'));
+            $articles_data->description = Input::get('description');
             $articles_data->image_src = Input::get('celebrity_image');
             $articles_data->status = 1;
 
@@ -209,7 +209,7 @@ class ArticlesController extends Controller
                 $articles_data->weight = Input::get('weight');
                 $articles_data->ethnicity = Input::get('ethnicity');
                 $articles_data->salary = Input::get('salary');
-                $articles_data->description = json_encode(Input::get('description'));
+                $articles_data->description = Input::get('description');
                 $articles_data->image_src = Input::get('celebrity_image');
                 $articles_data->status = 1;
 
@@ -257,7 +257,6 @@ class ArticlesController extends Controller
                     array_push($articles_array, $av->id);
                 }
             }
-
                 $articles = Article::PrepareForResultsPage(Article::where('status',1)->whereIn('id', $articles_array)->get());
                 $more_articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy('id', 'desc')->take(10)->get());
                 return view('articles.results')
@@ -299,11 +298,33 @@ class ArticlesController extends Controller
             $articles = Article::PrepareForFinalResult(Article::find($id));
             if (isset($articles)) {
                 $more_articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy('id', 'desc')->take(10)->get());
+
+                if (isset($articles['description'])) {
+                    # code...
+                }
+                $slugtxt = isset($articles['description'])?$articles['description']:'';
+
+                //PARSE ALL IN HTML
+                $des_re = "";
+                $des_re_0 = "";
+                $url = 'http://en.wikipedia.org/w/api.php?action=parse&prop=text&page='.$slugtxt.'&format=json';
+                $json = file_get_contents($url);
+                if (isset($json)) {
+                    $data = json_decode($json,true);
+                    $myarray = array_values($data);
+                    if (isset($myarray[0]['text']['*'])) {
+                        $des_re .= $myarray[0]['text']['*'];
+                    }
+                }
+
+
+                
                 if (isset($articles)) {
                     return view('articles.final_result')
                         ->with('resultspage','1')
                         ->with('articles',$articles)
                         ->with('layout','layouts.result')
+                        ->with('des_re',$des_re)
                         ->with('more_articles',$more_articles);
                 }
             }

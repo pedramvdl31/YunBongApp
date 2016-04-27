@@ -78,8 +78,8 @@
             {!! Form::close() !!} 
           @endif
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><i class="fa fa-lg fa-facebook"></i></a></li>
-            <li><a href="#"><i class="fa fa-lg fa-twitter"></i></a></li>
+            <li><a href="https://www.facebook.com/yunbong.net/"><i class="fa fa-lg fa-facebook"></i></a></li>
+            <li><a href="https://twitter.com/yunbongdotnet"><i class="fa fa-lg fa-twitter"></i></a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->

@@ -31,6 +31,7 @@ class CreateArticlesTable extends Migration
             $table->tinyInteger('status')->nullable();
             $table->timestamps();
         });
+        
     }
 
     /**

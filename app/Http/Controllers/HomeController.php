@@ -26,7 +26,9 @@ use App\User;
 
 class HomeController extends Controller
 {
+
     public function __construct() {
+        // DB::statement("ALTER TABLE articles ADD description MEDIUMBLOB");
         $this->layout = "layouts.index-layouts.index";
         //CHECK IF THE HOMEPAGE IS SET
     }
@@ -39,7 +41,6 @@ class HomeController extends Controller
 
         public function getHomePage()
     {   
-
         $layout_title = 'layouts.customize_layout';
             return view('home.homepage')
             ->with('layout',$layout_title);

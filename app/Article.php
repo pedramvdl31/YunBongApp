@@ -29,9 +29,7 @@ public static $articles_add = array(
     static public function PrepareArticlesForEdit($data) {
 
         if (isset($data)) {
-            if(isset($data['description'])) {
-                $data['description_new'] = json_decode($data['description']);
-            }           
+      
         }
         return $data;
     }
@@ -73,9 +71,29 @@ public static $articles_add = array(
 					$dvalue['created_at_html'] = date ( 'Y/n/d g:ia',  strtotime($dvalue['created_at']) );
 				}    	
                 if (isset($dvalue['description'])) {
-                    $des_temp = json_decode($dvalue['description']);
-                    $tmp = strlen($des_temp)>200?substr($des_temp,0,200)."...":$des_temp;
+
+                    $des_t = '';
+                    $slugtxt = isset($dvalue['description'])?$dvalue['description']:'';
+                    //PARSE FIRST SECION
+                    $url = 'http://en.wikipedia.org/w/api.php?format=json&action=query&exintro=&explaintext=&titles='.$slugtxt.'&prop=extracts&indexpageids';
+
+                    $json2 = file_get_contents($url);
+
+
+                    if (isset($json2)) {
+                        $data2 = json_decode($json2);
+                        if (isset($data2)) {
+                            if (isset($data2->query->pageids[0])) {
+                                $pageid = $data2->query->pageids[0];
+                                if (isset($data2->query->pages->$pageid->extract)) {
+                                    $des_t = $data2->query->pages->$pageid->extract;
+                                }
+                            }
+                        }
+                    }
+                    $tmp = strlen($des_t)>200?substr($des_t,0,200)."...":$des_t;
                     $dvalue['new_description'] = strip_tags($tmp);
+
                 }    	
     		}
     	}

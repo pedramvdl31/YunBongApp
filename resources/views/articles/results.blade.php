@@ -38,7 +38,6 @@
 		    font-weight: normal;
 		    font-size: 15px;
 		    line-height: 18px;
-		    color: #cfcfcf !important;
 		    font-family: 'Titillium Web', sans-serif;
 		}		
 		.cdes-other{
@@ -129,7 +128,7 @@
 			<span>Oink! There were no results for your search. Are we missing something?</span>
 	        {!! Form::open(array('action' => 'ArticlesController@postSearch', 'class'=>'sform','role'=>"form")) !!}
 		        <div class="input-group">
-		          <input name="searched_text" name="searched-content" type="text" class="form-control" id="sform-input" placeholder="Search for a Celebrity...">
+		          <input name="searched_text" name="searched-content" type="text" class="form-control" id="sform-input" placeholder="이름을 입력 해주세요...">
 		          <span class="input-group-btn">
 		            <button class="btn btn-primary my-btn-primary" type="submit" >Go!</button>
 		          </span>
@@ -141,7 +140,7 @@
 	    @elseif(count($articles) > 0)
 	    	{!! Form::open(array('action' => 'ArticlesController@postSearch', 'class'=>'sform','role'=>"form")) !!}
 		        <div class="input-group" style="margin-bottom: 20px">
-		          <input name="searched_text" name="searched-content" type="text" class="form-control" id="sform-input" placeholder="Search for a Celebrity...">
+		          <input name="searched_text" name="searched-content" type="text" class="form-control" id="sform-input" placeholder="이름을 입력 해주세요...">
 		          <span class="input-group-btn">
 		            <button class="btn btn-primary my-btn-primary" type="submit" >Go!</button>
 		          </span>
@@ -162,13 +161,13 @@
 							<div class="content">
 		                    	<span class="ctitle cdata {{$artskey==0?'main_color':'not'}} pointer view-this">{{$aval->name}}</span>
 		                    	<br>
-		                    	@if(isset($aval->title))
-		                    		<span class="datadate ">{!!$aval->title!!}</span>
+		                    	@if(isset($aval->profession))
+		                    		<span class="datadate ">{!!$aval->profession!!}</span>
 		                    	@endif
 		                    	<p style="margin: -6px 0;">&nbsp</p>
 		                    	<span class="cdes cdata {{$artskey==0?'main_color':'not'}}">{{$aval['new_description']}}</span>
 		                    	<p style="margin: -6px 0;">&nbsp</p>
-		                    	<span class="view-this pointer"><i style="color: black" class="fa fa-arrow-right"></i>&nbsp{{$aval->name}} Net Worth</span>
+		                    	<span class="view-this pointer"><i style="color: black" class="fa fa-arrow-right"></i>&nbspClick For More</span>
 		                    </div>
 						</div>
 
@@ -177,8 +176,8 @@
 				@endforeach
 			@endif	    
 		@endif
-		<span id="no_results">Take a look at these pages:</span><br>
-		<span class="datadate">Our latest articles on the richest celebrities</span><br>
+		<span id="no_results">더 많은 재산 또는 연봉 정보:</span><br>
+		<span class="datadate">궁금했던 사람들의 연봉을 확인하세요!</span><br>
 		<div id="other-results" style="padding-top: 40px">
 			@if(isset($more_articles))
 				@foreach($more_articles as $arts)
@@ -199,7 +198,7 @@
 		                    	<p style="margin: -6px 0;">&nbsp</p>
 		                    	<span class="cdes-other cdata">{{$arts['new_description']}}</span>
 		                    	<p style="margin: -6px 0;">&nbsp</p>
-		                    	<span class="view-this pointer"><i class="fa fa-arrow-right"></i>&nbsp{{$arts->name}} Net Worth</span>
+		                    	<span class="view-this pointer"><i class="fa fa-arrow-right"></i>&nbspClick For More</span>
 		                    </div>
 						</div>
 					</div>

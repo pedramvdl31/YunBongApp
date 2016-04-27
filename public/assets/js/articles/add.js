@@ -15,26 +15,6 @@ add = {
 	      return false;
 	    }
 	  });
-	  	tinymce.init({
-			fontsize_formats: "8pt 10pt 12pt 14pt",
-			selector: '.des',
-			height: 500,
-			theme: 'modern',
-			plugins: [
-			'advlist autolink lists print preview hr anchor pagebreak',
-			'searchreplace wordcount visualchars code fullscreen',
-			'insertdatetime nonbreaking save table contextmenu directionality',
-			'emoticons template textcolor colorpicker textpattern'
-			],
-			toolbar1: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-			toolbar2: 'print preview | forecolor backcolor emoticons',
-			image_advtab: false,
-			templates: [
-			{ title: 'Test template 1', content: 'Test 1' },
-			{ title: 'Test template 2', content: 'Test 2' }
-			],
-			paste_data_images: false
-		});
 
 
 

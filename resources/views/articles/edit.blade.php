@@ -140,8 +140,8 @@
       </div>
 
       <div class="form-group {{ $errors->has('description') ? 'has-error' : false }}">
-        <label class="control-label" for="description">Description*</label>
-            {!! Form::textarea('description', $articles['description_new'], ['class' => 'des field form-control','size' => '30x8', 'placeholder'=>'Description']) !!}
+        <label class="control-label" for="description">WIKI Slug*</label>
+          {!! Form::text('description', $articles['description'], ['class' => 'form-control','placeholder'=>'WIKI Slug']) !!}
           @foreach($errors->get('description') as $message)
               <span class='help-block'>{{ $message }}</span>
           @endforeach

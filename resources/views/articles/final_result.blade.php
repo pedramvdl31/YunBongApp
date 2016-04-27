@@ -342,8 +342,8 @@
 
 </style>
 <div class="col-md-9 clearfix">
-	<span class="ptitle">{{$articles->name}} Net Worth</span>
-	<span>How much is {{$articles->name}} Worth? in <span class="link-color">Richest Businessmen</span> › <span class="link-color">Richest Billionaires</span></span>
+	<span class="ptitle">{{$articles->name}}</span>
+	<span>{{$articles->name}} Worth? in <span class="link-color">Richest Businessmen</span> › <span class="link-color">Richest Billionaires</span></span>
 
 
 
@@ -361,91 +361,103 @@
 			  redirect_uri={!!Request::url()!!}&amp;
 			  picture={!!Request::root()!!}/assets/images/articles/prm/{{$articles->image_src}}">
 			  <i class="fa fa-lg fa-facebook"></i>
-			  &nbsp&nbspShare on Facebook
+			  &nbsp&nbsp소문&nbsp내기
 		</a>
 
 
 		<a href="/rand-articles" class="btn btn-rnd-search pull-right my-btns">
-			<span>Random</span> 
+			<span>랜덤</span> 
 		<img style="background: white;margin-top: -3px;" width="21px" height="21px" src="/assets/images/icons/dice.png">
 		</a>
 
 
 	</div>
+	<style type="text/css">
+	.references,.mw-ext-cite-error, .infobox{
+		display: none;
+	}
+	</style>
 
-	<div class="col-md-5 my-cols" style="padding-left: 0">
-		<div class="main-img-res col-md-12 my-cols" style="padding-left: 0">
-			<div class="ad-image-main-res" style="background-image: url('/assets/images/articles/prm/{{$articles->image_src}}')">
-	    	</div>	
-		</div>	
-		<div class="par netw">
-			<span class="mtitle">{{$articles->name}}</span>
-			@if(isset($articles->title) && $articles->title!='')
-				<div class="prof">
-					<span class="prof-txt">{{$articles->title}}</span>	
-				</div>
-			@endif		
-			@if(isset($articles->dob) && $articles->dob!='')
-				<div class="data-wrapper">
-					<h5 class="header-d">Date of Birth</h5>
-					<span class="data-text">{{$articles->dob}}</span>	
-				</div>
-			@endif		
-			@if(isset($articles->profession) && $articles->profession!='')
-				<div class="data-wrapper">
-					<h5 class="header-d">Profession</h5>
-					<span class="data-text">{{$articles->profession}}</span>	
-				</div>
-			@endif		
-			@if(isset($articles->nationality) && $articles->nationality!='')
-				<div class="data-wrapper">
-					<h5 class="header-d">Nationality</h5>
-					<span class="data-text">{{$articles->nationality}}</span>	
-				</div>
-			@endif		
-			@if(isset($articles->height) && $articles->height!='')
-				<div class="data-wrapper">
-					<h5 class="header-d">Height</h5>
-					<span class="data-text">{{$articles->height}}</span>	
-				</div>
-			@endif		
-			@if(isset($articles->weight) && $articles->weight!='')
-				<div class="data-wrapper">
-					<h5 class="header-d">Weight</h5>
-					<span class="data-text">{{$articles->weight}}</span>	
-				</div>
-			@endif
-			@if(isset($articles->ethnicity) && $articles->ethnicity!='')
-				<div class="data-wrapper">
-					<h5 class="header-d">Ethnicity</h5>
-					<span class="data-text">{{$articles->ethnicity}}</span>	
-				</div>
-			@endif
-			@if(isset($articles->nicknames) && $articles->nicknames!='')
-				<div class="data-wrapper">
-					<h5 class="header-d">Nicknames</h5>
-					<span class="data-text">{{$articles->nicknames}}</span>	
-				</div>
-			@endif
-		</div>
-	</div>
-	<div class="more-info col-md-7" style="padding-left: 0">
-		<div class="netw">
-			<span class="ntitle">{{$articles->name}} net worth:</span>
-			<span class="netv">{{$articles->net}}</span>	
-		</div>
-		@if(isset($articles->salary) && $articles->salary!='')
-			<div class="netw">
-				<span class="ntitle">{{$articles->name}} Salary:</span>
-				<span class="netv">{{$articles->salary}}</span>	
+
+	<div class="col-md-12">
+		<div class="col-md-5 my-cols" style="padding-left: 0">
+			<div class="main-img-res col-md-12 my-cols" style="padding-left: 0">
+				<div class="ad-image-main-res" style="background-image: url('/assets/images/articles/prm/{{$articles->image_src}}')">
+		    	</div>	
+			</div>	
+			<div class="par netw">
+				<span class="mtitle">{{$articles->name}}</span>
+				@if(isset($articles->title) && $articles->title!='')
+					<div class="prof">
+						<span class="prof-txt">{{$articles->title}}</span>	
+					</div>
+				@endif		
+				@if(isset($articles->dob) && $articles->dob!='')
+					<div class="data-wrapper">
+						<h5 class="header-d">DOB</h5>
+						<span class="data-text">{{$articles->dob}}</span>	
+					</div>
+				@endif		
+				@if(isset($articles->profession) && $articles->profession!='')
+					<div class="data-wrapper">
+						<h5 class="header-d">Profession</h5>
+						<span class="data-text">{{$articles->profession}}</span>	
+					</div>
+				@endif		
+				@if(isset($articles->nationality) && $articles->nationality!='')
+					<div class="data-wrapper">
+						<h5 class="header-d">Nationality</h5>
+						<span class="data-text">{{$articles->nationality}}</span>	
+					</div>
+				@endif		
+				@if(isset($articles->height) && $articles->height!='')
+					<div class="data-wrapper">
+						<h5 class="header-d">Height</h5>
+						<span class="data-text">{{$articles->height}}</span>	
+					</div>
+				@endif		
+				@if(isset($articles->weight) && $articles->weight!='')
+					<div class="data-wrapper">
+						<h5 class="header-d">Weight</h5>
+						<span class="data-text">{{$articles->weight}}</span>	
+					</div>
+				@endif
+				@if(isset($articles->ethnicity) && $articles->ethnicity!='')
+					<div class="data-wrapper">
+						<h5 class="header-d">Ethnicity</h5>
+						<span class="data-text">{{$articles->ethnicity}}</span>	
+					</div>
+				@endif
+				@if(isset($articles->nicknames) && $articles->nicknames!='')
+					<div class="data-wrapper">
+						<h5 class="header-d">Nicknames</h5>
+						<span class="data-text">{{$articles->nicknames}}</span>	
+					</div>
+				@endif
 			</div>
-		@endif
-		<div class="post-des">
-			<p class="post-des-p" >
-				{!!$articles->description_new!!}
-			</p>
+		</div>
+
+		<div class="more-info" style="padding-left: 0">
+			<div class="netw">
+				<span class="ntitle">{{$articles->name}} 재산:</span>
+				<span class="netv">{{$articles->net}}</span>	
+			</div>
+			@if(isset($articles->salary) && $articles->salary!='')
+				<div class="netw">
+					<span class="ntitle">{{$articles->name}} 연봉:</span>
+					<span class="netv">{{$articles->salary}}</span>	
+				</div>
+			@endif
+			<div class="post-des">
+				<p class="post-des-p" >
+					{!!$des_re!!}
+				</p>
+			</div>	
 		</div>	
+
 	</div>
+
+
 	<div class="fb-comments" data-href="http://yunbong.app:8000/view/comments/{{$articles->code}}" data-width="100%" data-numposts="5"></div>
 </div>
 <div class="col-md-3">
@@ -453,8 +465,8 @@
 </div>
 
 <div class="col-md-12">
-	<br><span id="no_results">Take a look at these pages:</span><br>
-	<span class="datadate">Our latest articles on the richest celebrities</span><br>
+	<br><span id="no_results">더 많은 재산 또는 연봉 정보:</span><br>
+	<span class="datadate">궁금했던 사람들의 연봉을 확인하세요!</span><br>
 	<div id="other-results" style="padding-top: 40px">
 		@if(isset($more_articles))
 			@foreach($more_articles as $arts)
@@ -467,13 +479,15 @@
                     <div class="content">
                     	<span class="ctitle cdata view-this pointer">{{$arts->name}}</span>
                     	<br>
-                    	@if(isset($arts->title))
-                    		<span class="datadate ">{!!$arts->title!!}</span>
+                    	@if(isset($arts->profession))
+                    		<span class="datadate ">{!!$arts->profession!!}</span>
                     	@endif
                     	<p style="margin: 0px 0 5px;">&nbsp</p>
-                    	<span class="cdes cdata">{!!$arts['new_description']!!}</span>
+                    	@if(isset($arts['new_description']))
+                    		<span class="cdes cdata">{!!$arts['new_description']!!}</span>
+                    	@endif
                     	<br>
-                    	<span class="view-this pull-right pointer"><i class="fa fa-arrow-right"></i>&nbsp{{$arts->name}} Net Worth</span>
+                    	<span class="view-this pull-right pointer"><i class="fa fa-arrow-right"></i>&nbspClick For More</span>
                     </div>
 				</div>
 			@endforeach
