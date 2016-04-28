@@ -43,7 +43,7 @@ public static $articles_add = array(
                     $des_t_4 = '';
                     $slugtxt = isset($data['description'])?$data['description']:'';
                     //PARSE FIRST SECION
-                    $url2 = 'http://en.wikipedia.org/w/api.php?format=json&action=query&exintro=&explaintext=&titles='.$slugtxt.'&prop=extracts&indexpageids';
+                    $url2 = 'http://ko.wikipedia.org/w/api.php?format=json&action=query&exintro=&explaintext=&titles='.$slugtxt.'&prop=extracts&indexpageids';
 
                     $json3 = file_get_contents($url2);
 
@@ -95,7 +95,7 @@ public static $articles_add = array(
                     $des_t = '';
                     $slugtxt = isset($dvalue['description'])?$dvalue['description']:'';
                     //PARSE FIRST SECION
-                    $url = 'http://en.wikipedia.org/w/api.php?format=json&action=query&exintro=&explaintext=&titles='.$slugtxt.'&prop=extracts&indexpageids';
+                    $url = 'http://ko.wikipedia.org/w/api.php?format=json&action=query&exintro=&explaintext=&titles='.$slugtxt.'&prop=extracts&indexpageids';
 
                     $json2 = file_get_contents($url);
 

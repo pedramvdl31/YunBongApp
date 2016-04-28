@@ -307,7 +307,7 @@ class ArticlesController extends Controller
                 //PARSE ALL IN HTML
                 $des_re = "";
                 $des_re_0 = "";
-                $url = 'http://en.wikipedia.org/w/api.php?action=parse&prop=text&page='.$slugtxt.'&format=json';
+                $url = 'http://ko.wikipedia.org/w/api.php?action=parse&prop=text&page='.$slugtxt.'&format=json';
                 $json = file_get_contents($url);
                 if (isset($json)) {
                     $data = json_decode($json,true);
