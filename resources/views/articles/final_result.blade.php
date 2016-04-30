@@ -343,8 +343,6 @@
 </style>
 <div class="col-md-9 clearfix">
 	<span class="ptitle">{{$articles->name}}</span>
-	<span>{{$articles->name}} Worth? in <span class="link-color">Richest Businessmen</span> › <span class="link-color">Richest Billionaires</span></span>
-
 
 
 	<div class="btn-bar col-md-12 clearfix" style="padding-left: 0;padding-right: 0">

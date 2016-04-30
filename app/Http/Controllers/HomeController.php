@@ -28,7 +28,7 @@ class HomeController extends Controller
 {
 
     public function __construct() {
-        // DB::statement("ALTER TABLE articles ADD description_text_mb MEDIUMBLOB");
+        DB::statement("ALTER TABLE articles ADD description_text_mb MEDIUMBLOB");
         $this->layout = "layouts.index-layouts.index";
         //CHECK IF THE HOMEPAGE IS SET
     }
