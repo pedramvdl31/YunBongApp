@@ -394,43 +394,43 @@
 				@endif		
 				@if(isset($articles->dob) && $articles->dob!='')
 					<div class="data-wrapper">
-						<h5 class="header-d">DOB</h5>
+						<h5 class="header-d">생년월일</h5>
 						<span class="data-text">{{$articles->dob}}</span>	
 					</div>
 				@endif		
 				@if(isset($articles->profession) && $articles->profession!='')
 					<div class="data-wrapper">
-						<h5 class="header-d">Profession</h5>
+						<h5 class="header-d">직업</h5>
 						<span class="data-text">{{$articles->profession}}</span>	
 					</div>
 				@endif		
 				@if(isset($articles->nationality) && $articles->nationality!='')
 					<div class="data-wrapper">
-						<h5 class="header-d">Nationality</h5>
+						<h5 class="header-d">국적</h5>
 						<span class="data-text">{{$articles->nationality}}</span>	
 					</div>
 				@endif		
 				@if(isset($articles->height) && $articles->height!='')
 					<div class="data-wrapper">
-						<h5 class="header-d">Height</h5>
+						<h5 class="header-d">키</h5>
 						<span class="data-text">{{$articles->height}}</span>	
 					</div>
 				@endif		
 				@if(isset($articles->weight) && $articles->weight!='')
 					<div class="data-wrapper">
-						<h5 class="header-d">Weight</h5>
+						<h5 class="header-d">몸무게</h5>
 						<span class="data-text">{{$articles->weight}}</span>	
 					</div>
 				@endif
 				@if(isset($articles->ethnicity) && $articles->ethnicity!='')
 					<div class="data-wrapper">
-						<h5 class="header-d">Ethnicity</h5>
+						<h5 class="header-d">특이사항</h5>
 						<span class="data-text">{{$articles->ethnicity}}</span>	
 					</div>
 				@endif
 				@if(isset($articles->nicknames) && $articles->nicknames!='')
 					<div class="data-wrapper">
-						<h5 class="header-d">Nicknames</h5>
+						<h5 class="header-d">별명</h5>
 						<span class="data-text">{{$articles->nicknames}}</span>	
 					</div>
 				@endif

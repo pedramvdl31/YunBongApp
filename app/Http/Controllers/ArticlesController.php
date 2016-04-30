@@ -127,9 +127,53 @@ class ArticlesController extends Controller
             $articles_data->weight = Input::get('weight');
             $articles_data->ethnicity = Input::get('ethnicity');
             $articles_data->salary = Input::get('salary');
-            $articles_data->description = Input::get('description');
             $articles_data->image_src = Input::get('celebrity_image');
             $articles_data->status = 1;
+
+
+            $articles_data->description = Input::get('description');
+            $tdes = Input::get('description');
+            $des_re = "";
+            $des_sum = "";
+            if (isset($tdes)) {
+                //PARSE ALL IN HTML
+                $url = 'http://ko.wikipedia.org/w/api.php?action=parse&prop=text&page='.$tdes.'&format=json';
+                $jsonf = file_get_contents($url);
+                if (isset($jsonf)) {
+                    $datas = json_decode($jsonf,true);
+                    $myarray = array_values($datas);
+                    if (isset($myarray[0]['text']['*'])) {
+                        $des_re .= $myarray[0]['text']['*'];
+                    }
+                }
+
+                //SUM
+
+                $url = 'http://ko.wikipedia.org/w/api.php?format=json&action=query&exintro=&explaintext=&titles='.$tdes.'&prop=extracts&indexpageids';
+                $json12 = file_get_contents($url);
+                if (isset($json12)) {
+                    $data22 = json_decode($json12);
+                    if (isset($data22)) {
+                        if (isset($data22->query->pageids[0])) {
+                            $pageid = $data22->query->pageids[0];
+                            if (isset($data22->query->pages->$pageid->extract)) {
+                                $des_tt = $data22->query->pages->$pageid->extract;
+                            }
+                        }
+                    }
+                }
+                $des_sum = strlen($des_tt)>200?substr($des_tt,0,200)."...":$des_tt;
+
+            }
+            
+            $articles_data->description_text_mb = json_encode($des_re);
+            $articles_data->description_summary = json_encode($des_sum);
+
+
+
+
+
+            
 
             if ($articles_data->save()) {
                  Flash::success('Successfully added!');
@@ -209,9 +253,53 @@ class ArticlesController extends Controller
                 $articles_data->weight = Input::get('weight');
                 $articles_data->ethnicity = Input::get('ethnicity');
                 $articles_data->salary = Input::get('salary');
-                $articles_data->description = Input::get('description');
                 $articles_data->image_src = Input::get('celebrity_image');
                 $articles_data->status = 1;
+
+                $articles_data->description = Input::get('description');
+                $tdes = Input::get('description');
+                $des_re = "";
+                $des_sum = "";
+                if (isset($tdes)) {
+                    //PARSE ALL IN HTML
+                    $url = 'http://ko.wikipedia.org/w/api.php?action=parse&prop=text&page='.$tdes.'&format=json';
+                    $jsonf = file_get_contents($url);
+                    if (isset($jsonf)) {
+                        $datas = json_decode($jsonf,true);
+                        $myarray = array_values($datas);
+                        if (isset($myarray[0]['text']['*'])) {
+                            $des_re .= $myarray[0]['text']['*'];
+                        }
+                    }
+
+                    //SUM
+
+                    $url = 'http://ko.wikipedia.org/w/api.php?format=json&action=query&exintro=&explaintext=&titles='.$tdes.'&prop=extracts&indexpageids';
+                    $json12 = file_get_contents($url);
+                    if (isset($json12)) {
+                        $data22 = json_decode($json12);
+                        if (isset($data22)) {
+                            if (isset($data22->query->pageids[0])) {
+                                $pageid = $data22->query->pageids[0];
+                                if (isset($data22->query->pages->$pageid->extract)) {
+                                    $des_tt = $data22->query->pages->$pageid->extract;
+                                }
+                            }
+                        }
+                    }
+                    $des_sum = strlen($des_tt)>200?substr($des_tt,0,200)."...":$des_tt;
+
+                }
+
+                $articles_data->description_text_mb = json_encode($des_re);
+                $articles_data->description_summary = json_encode($des_sum);
+
+
+
+
+
+
+
 
                 if ($articles_data->save()) {
                      Flash::success('Successfully added!');
@@ -299,26 +387,12 @@ class ArticlesController extends Controller
             if (isset($articles)) {
                 $more_articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy('id', 'desc')->take(10)->get());
 
-                if (isset($articles['description'])) {
-                    # code...
-                }
-                $slugtxt = isset($articles['description'])?$articles['description']:'';
-
-                //PARSE ALL IN HTML
-                $des_re = "";
-                $des_re_0 = "";
-                $url = 'http://ko.wikipedia.org/w/api.php?action=parse&prop=text&page='.$slugtxt.'&format=json';
-                $json = file_get_contents($url);
-                if (isset($json)) {
-                    $data = json_decode($json,true);
-                    $myarray = array_values($data);
-                    if (isset($myarray[0]['text']['*'])) {
-                        $des_re .= $myarray[0]['text']['*'];
-                    }
+                if (isset($articles['description_text_mb'])) {
+                    $des_re = json_decode($articles['description_text_mb']);
                 }
 
 
-                
+
                 if (isset($articles)) {
                     return view('articles.final_result')
                         ->with('resultspage','1')
