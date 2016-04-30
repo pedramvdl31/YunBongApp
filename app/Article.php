@@ -38,7 +38,7 @@ public static $articles_add = array(
 
         if (isset($data)) {
             if(isset($data['description_summary'])) {
-                $data['short_description'] = json_decode($data['description_summary']);
+                $data['short_description'] = $data['description_summary'];
             }           
         }
         return $data;
@@ -68,7 +68,7 @@ public static $articles_add = array(
 				}    	
                 if (isset($dvalue['description_summary'])) {
 
-                    $dvalue['new_description'] = json_decode($dvalue['description_summary']);
+                    $dvalue['new_description'] = $dvalue['description_summary'];
 
                 }    	
     		}

@@ -167,7 +167,7 @@ class ArticlesController extends Controller
             }
             
             $articles_data->description_text_mb = json_encode($des_re);
-            $articles_data->description_summary = json_encode($des_sum);
+            $articles_data->description_summary = $des_sum;
 
 
 
@@ -292,7 +292,7 @@ class ArticlesController extends Controller
                 }
 
                 $articles_data->description_text_mb = json_encode($des_re);
-                $articles_data->description_summary = json_encode($des_sum);
+                $articles_data->description_summary = $des_sum;
 
 
 

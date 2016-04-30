@@ -55,6 +55,20 @@ class Job extends Model
 
 		return false;
 	}
+
+
+	static public function utf8ize($d) {
+	    if (is_array($d)) {
+	        foreach ($d as $k => $v) {
+	            $d[$k] = utf8ize($v);
+	        }
+	    } else if (is_string ($d)) {
+	        return utf8_encode($d);
+	    }
+	    return $d;
+	}
+
+
 	static public function UrlFriendly($string) {
 		if(isset($string)) {
 			return strtolower(trim(preg_replace('~[^0-9a-z]+~i', '-', html_entity_decode(preg_replace('~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', htmlentities($string, ENT_QUOTES, 'UTF-8')), ENT_QUOTES, 'UTF-8')), '-'));
