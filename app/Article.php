@@ -9,8 +9,7 @@ class article extends Model
 public static $articles_add = array(
         'name'=>'required',
         'networth'=>'required',
-        'description'=>'required',
-        'celebrity_image'=>'required'
+        'description'=>'required'
     );
 
 
@@ -67,9 +66,7 @@ public static $articles_add = array(
 					$dvalue['created_at_html'] = date ( 'Y/n/d g:ia',  strtotime($dvalue['created_at']) );
 				}    	
                 if (isset($dvalue['description_summary'])) {
-
                     $dvalue['new_description'] = $dvalue['description_summary'];
-
                 }    	
     		}
     	}

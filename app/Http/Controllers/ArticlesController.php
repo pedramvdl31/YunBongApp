@@ -105,9 +105,11 @@ class ArticlesController extends Controller
             } 
             $oldpath = public_path($tmp_path.$_img);
             $newpath = public_path($new_path.$_img);
-            if (file_exists($tmp_path.$_img)) {
+
+            if (file_exists($tmp_path.$_img) && !empty($_img)) {
                 rename($oldpath, $newpath);
             }  
+
             $files = glob($tmp_path.'*'); // get all file names
             foreach($files as $file){ // iterate files
               if(is_file($file))
@@ -127,7 +129,7 @@ class ArticlesController extends Controller
             $articles_data->weight = Input::get('weight');
             $articles_data->ethnicity = Input::get('ethnicity');
             $articles_data->salary = Input::get('salary');
-            $articles_data->image_src = Input::get('celebrity_image');
+            $articles_data->image_src = !empty($_img)?$_img:null;
             $articles_data->status = 1;
 
 
@@ -168,12 +170,6 @@ class ArticlesController extends Controller
             
             $articles_data->description_text_mb = json_encode($des_re);
             $articles_data->description_summary = $des_sum;
-
-
-
-
-
-            
 
             if ($articles_data->save()) {
                  Flash::success('Successfully added!');
@@ -229,7 +225,7 @@ class ArticlesController extends Controller
                 } 
                 $oldpath = public_path($tmp_path.$_img);
                 $newpath = public_path($new_path.$_img);
-                if (file_exists($tmp_path.$_img)) {
+                if (file_exists($tmp_path.$_img) && !empty($_img)) {
                     rename($oldpath, $newpath);
                     $tfiles = $new_path.$articles_data->image_src; // get all file names
                     if(file_exists($tfiles)){
@@ -253,7 +249,7 @@ class ArticlesController extends Controller
                 $articles_data->weight = Input::get('weight');
                 $articles_data->ethnicity = Input::get('ethnicity');
                 $articles_data->salary = Input::get('salary');
-                $articles_data->image_src = Input::get('celebrity_image');
+                $articles_data->image_src = !empty($_img)?$_img:null;
                 $articles_data->status = 1;
 
                 $articles_data->description = Input::get('description');
@@ -361,23 +357,49 @@ class ArticlesController extends Controller
 
     public function postSearchRand()
     {
-        $articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy(DB::raw('RAND()'))->take(10)->get());
-        $more_articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy('id', 'desc')->take(10)->get());
-        return view('articles.results')
-            ->with('layout','layouts.customize_layout')
-            ->with('resultspage','1')
-            ->with('articles',$articles)
-            ->with('more_articles',$more_articles);
+        $count = count(Article::all());
+        $articles = Article::PrepareForFinalResult(Article::find(rand(1, $count)));
+        if (isset($articles)) {
+            $more_articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy('id', 'desc')->take(10)->get());
+
+            if (isset($articles['description_text_mb'])) {
+                $des_re = json_decode($articles['description_text_mb']);
+            }
+
+
+
+            if (isset($articles)) {
+                return view('articles.final_result')
+                    ->with('resultspage','1')
+                    ->with('articles',$articles)
+                    ->with('layout','layouts.result')
+                    ->with('des_re',$des_re)
+                    ->with('more_articles',$more_articles);
+            }
+        }
     }  
     public function getSearchRand()
     {
-        $articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy(DB::raw('RAND()'))->take(10)->get());
-        $more_articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy('id', 'desc')->take(10)->get());
-        return view('articles.results')
-            ->with('layout','layouts.customize_layout')
-            ->with('resultspage','1')
-            ->with('articles',$articles)
-            ->with('more_articles',$more_articles);
+        $count = count(Article::all());
+        $articles = Article::PrepareForFinalResult(Article::find(rand(1, $count)));
+        if (isset($articles)) {
+            $more_articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy('id', 'desc')->take(10)->get());
+
+            if (isset($articles['description_text_mb'])) {
+                $des_re = json_decode($articles['description_text_mb']);
+            }
+
+
+
+            if (isset($articles)) {
+                return view('articles.final_result')
+                    ->with('resultspage','1')
+                    ->with('articles',$articles)
+                    ->with('layout','layouts.result')
+                    ->with('des_re',$des_re)
+                    ->with('more_articles',$more_articles);
+            }
+        }
     }  
 
     public function getViewOne($id = null)

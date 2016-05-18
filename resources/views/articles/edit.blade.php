@@ -36,7 +36,12 @@
   <div class="panel-body">
 
     <div class="form-group {!! $errors->has('celebrity_image') ? 'has-error' : false !!}">
+    @if(isset($articles['image_src']))
       <img src="/assets/images/articles/prm/{{$articles['image_src']}}" alt="..." class="img-rounded profile_img" width="125px">
+    @else
+      <img src="/assets/images/profile-images/perm/blank_male.png" alt="..." class="img-rounded profile_img" width="125px">
+    @endif
+
       <span class="btn btn-success fileinput-button">
             <span>Change Avatar</span>
             <form id="file-form" action="handler.php" method="POST" >

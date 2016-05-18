@@ -294,6 +294,12 @@
 	.link-color{
 		    color: #0d6161;
 	}
+	.nowraplinks{
+		display: none;
+	}
+	.metadata{
+		display: none;
+	}
 	/*==========  Non-Mobile First Method  ==========*/
 
     /* Large Devices, Wide Screens */
@@ -380,7 +386,18 @@
 	<div class="col-md-12">
 		<div class="col-md-5 my-cols" style="padding-left: 0">
 			<div class="main-img-res col-md-12 my-cols" style="padding-left: 0">
-				<div class="ad-image-main-res" style="background-image: url('/assets/images/articles/prm/{{$articles->image_src}}')">
+				<div class="ad-image-main-res" 
+
+
+
+				    @if(isset($articles->image_src))
+						style="background-image: url('/assets/images/articles/prm/{{$articles->image_src}}')"
+				    @else
+				    	style="background-image: url('/assets/images/profile-images/perm/blank_male.png')"
+				    @endif
+
+
+				>
 		    	</div>	
 			</div>	
 			<div class="par netw">
@@ -470,7 +487,13 @@
 			@foreach($more_articles as $arts)
 				<div data="{{$arts->id}}" class="article-wrapper clearfix">
 					<div class="pull-left" style="margin-right: 28px;">
-						<div class="ad-image" style="background-image: url('/assets/images/articles/prm/{{$arts->image_src}}')">
+						<div class="ad-image" 
+							@if(isset($arts->image_src))
+								style="background-image: url('/assets/images/articles/prm/{{$arts->image_src}}')"
+						    @else
+						    	style="background-image: url('/assets/images/profile-images/perm/blank_male.png')"
+						    @endif
+						>
                     	</div>	
 					</div>
 

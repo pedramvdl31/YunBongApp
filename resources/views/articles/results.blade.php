@@ -152,7 +152,13 @@
 
 						<div class="col-md-4 m_col">
 							<div class="pull-left" style="margin-right: 28px;position: relative;">
-								<div class="ad-image {{$artskey==0?'ad-image-main':'not'}}" style="background-image: url('/assets/images/articles/prm/{{$aval->image_src}}')">
+								<div class="ad-image {{$artskey==0?'ad-image-main':'not'}}" 
+								    @if(isset($aval->image_src))
+										style="background-image: url('/assets/images/articles/prm/{{$aval->image_src}}')"
+								    @else
+								    	style="background-image: url('/assets/images/profile-images/perm/blank_male.png')"
+								    @endif
+								    >
 		                    	</div>	
 							</div>
 						</div>
@@ -184,7 +190,19 @@
 					<div data="{{$arts->id}}" class="article-wrapper clearfix">
 						<div class="col-md-4 m_col">
 							<div class="pull-left" style="margin-right: 28px;">
-								<div class="ad-image" style="background-image: url('/assets/images/articles/prm/{{$arts->image_src}}')">
+
+
+
+								<div class="ad-image" 
+
+
+									@if(isset($arts->image_src))
+										style="background-image: url('/assets/images/articles/prm/{{$arts->image_src}}')"
+								    @else
+								    	style="background-image: url('/assets/images/profile-images/perm/blank_male.png')"
+								    @endif
+
+								>
 		                    	</div>	
 							</div>
 						</div>
