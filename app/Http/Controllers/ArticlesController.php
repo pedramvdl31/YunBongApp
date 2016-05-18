@@ -443,28 +443,30 @@ class ArticlesController extends Controller
     } 
 
 
-    public function getView($id = null)
+    public function getRemoveArt($idt = null)
     {
-
-    } 
-
-
-
-    public function getRemove($id = null)
-    {
-        if (isset($id)) {
-            $article = Article::find($id);
+        $sp = DIRECTORY_SEPARATOR;
+        if (isset($idt)) {
+            $article = Article::find($idt);
             if (isset($article)) {
-                    $new_path = "assets".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."articles".DIRECTORY_SEPARATOR."prm".DIRECTORY_SEPARATOR;
-                    $tfiles = $new_path.$article->image_src; // get all file names
-                    if(file_exists($tfiles)){
-                        unlink($tfiles); // delete file
+                    $new_path = "assets".$sp."images".$sp."articles".$sp."prm".$sp;
+                    if (isset($article->image_src) && $article->image_src != '') {
+                        $tfiles = $new_path.$article->image_src; // get all file names
+                        if (is_dir($new_path)) {
+                            if(file_exists($tfiles)){
+                                unlink($tfiles); // delete file
+                            }
+                        }
                     }
                 if ($article->delete()) {
                     Flash::success('Successfully Removed!');
                     return Redirect::route('articles_index');
                 }
+            } else {
+                Job::dump('article not found.');
             }
+        } else {
+            Job::dump('ID not found.');
         }
     } 
 
