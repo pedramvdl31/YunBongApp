@@ -41,8 +41,6 @@ class HomeController extends Controller
 
         public function getHomePage()
     {   
-
-
         $layout_title = 'layouts.customize_layout';
             return view('home.homepage')
             ->with('layout',$layout_title);

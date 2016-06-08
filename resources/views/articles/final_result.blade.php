@@ -385,7 +385,7 @@
 
 	<div class="col-md-12">
 		<div class="col-md-5 my-cols" style="padding-left: 0">
-			<div class="main-img-res col-md-12 my-cols" style="padding-left: 0">
+			<div class="main-img-res col-md-12 my-cols" style="    margin-bottom: 10px;padding-left: 0">
 				<div class="ad-image-main-res" 
 
 

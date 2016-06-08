@@ -91,9 +91,8 @@ class ArticlesController extends Controller
         do {
             $rands = Job::generateRandomString(7);
         } while ( count(Article::where('code',$rands)->first()) != 0 );
-
-        $validator = Validator::make(Input::all(), Article::$articles_add);
-        if ($validator->passes()) {
+        // $validator = Validator::make(Input::all(), Article::$articles_add);
+        // if ($validator->passes()) {
             $_img = Input::get('celebrity_image');
             $tmp_path = "assets".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."articles".DIRECTORY_SEPARATOR."tmp".DIRECTORY_SEPARATOR;
             $new_path = "assets".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."articles".DIRECTORY_SEPARATOR."prm".DIRECTORY_SEPARATOR;
@@ -137,6 +136,7 @@ class ArticlesController extends Controller
             $tdes = Input::get('description');
             $des_re = "";
             $des_sum = "";
+            $des_tt = "";
             if (isset($tdes)) {
                 //PARSE ALL IN HTML
                 $url = 'http://ko.wikipedia.org/w/api.php?action=parse&prop=text&page='.$tdes.'&format=json';
@@ -175,15 +175,15 @@ class ArticlesController extends Controller
                  Flash::success('Successfully added!');
                  return Redirect::route('articles_index');
             }
-        }
-        else {
-             // validation has failed, display error messages    
-            return Redirect::back()
-            ->with('message', 'The following errors occurred')
-            ->with('alert_type','alert-danger')
-            ->withErrors($validator)
-            ->withInput(); 
-        } 
+        // }
+        // else {
+        //      // validation has failed, display error messages    
+        //     return Redirect::back()
+        //     ->with('message', 'The following errors occurred')
+        //     ->with('alert_type','alert-danger')
+        //     ->withErrors($validator)
+        //     ->withInput(); 
+        // } 
         
     }  
     /**
@@ -209,8 +209,8 @@ class ArticlesController extends Controller
      */
     public function postEdit()
     {
-        $validator = Validator::make(Input::all(), Article::$articles_add);
-        if ($validator->passes()) {
+        // $validator = Validator::make(Input::all(), Article::$articles_add);
+        // if ($validator->passes()) {
             $id = Input::get('article_id');
             $articles_data = Article::find($id);
             if (isset($articles_data)) {
@@ -256,6 +256,7 @@ class ArticlesController extends Controller
                 $tdes = Input::get('description');
                 $des_re = "";
                 $des_sum = "";
+                $des_tt="";
                 if (isset($tdes)) {
                     //PARSE ALL IN HTML
                     $url = 'http://ko.wikipedia.org/w/api.php?action=parse&prop=text&page='.$tdes.'&format=json';
@@ -284,19 +285,9 @@ class ArticlesController extends Controller
                         }
                     }
                     $des_sum = strlen($des_tt)>200?substr($des_tt,0,200)."...":$des_tt;
-
                 }
-
                 $articles_data->description_text_mb = json_encode($des_re);
                 $articles_data->description_summary = $des_sum;
-
-
-
-
-
-
-
-
                 if ($articles_data->save()) {
                      Flash::success('Successfully added!');
                      return Redirect::route('articles_index');
@@ -304,15 +295,15 @@ class ArticlesController extends Controller
             }
 
 
-        }
-        else {
-             // validation has failed, display error messages    
-            return Redirect::back()
-            ->with('message', 'The following errors occurred')
-            ->with('alert_type','alert-danger')
-            ->withErrors($validator)
-            ->withInput(); 
-        } 
+        // }
+        // else {
+        //      // validation has failed, display error messages    
+        //     return Redirect::back()
+        //     ->with('message', 'The following errors occurred')
+        //     ->with('alert_type','alert-danger')
+        //     ->withErrors($validator)
+        //     ->withInput(); 
+        // } 
         
     }  
 
@@ -343,13 +334,99 @@ class ArticlesController extends Controller
             }
                 $articles = Article::PrepareForResultsPage(Article::where('status',1)->whereIn('id', $articles_array)->get());
                 $more_articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy('id', 'desc')->take(10)->get());
+
+                if (count($articles) < 1) {
+                    $des_re = "";
+                    $des_sum = "";
+                    $des_tt = "";
+                    //PARSE ALL IN HTML
+                    $url = 'http://ko.wikipedia.org/w/api.php?action=parse&prop=text&page='.$search_text.'&format=json';
+                    $jsonf = file_get_contents($url);
+                    if (isset($jsonf)) {
+                        $datas = json_decode($jsonf,true);
+                        if (is_array($datas)) {
+                            $myarray = array_values($datas);
+                            if (isset($myarray[0]['text']['*'])) {
+                                $des_re .= $myarray[0]['text']['*'];
+                            }
+                        }
+                    }
+                    //SUM
+                    $url = 'http://ko.wikipedia.org/w/api.php?format=json&action=query&exintro=&explaintext=&titles='.$search_text.'&prop=extracts&indexpageids';
+                    $json12 = file_get_contents($url);
+                    if (isset($json12)) {
+                        $data22 = json_decode($json12);
+                        if (isset($data22)) {
+                            if (isset($data22->query->pageids[0])) {
+                                $pageid = $data22->query->pageids[0];
+                                if (isset($data22->query->pages->$pageid->extract)) {
+                                    $des_tt = $data22->query->pages->$pageid->extract;
+                                }
+                            }
+                        }
+                    }
+                    $des_sum = strlen($des_tt)>200?substr($des_tt,0,200)."...":$des_tt;
+                    if (isset($des_sum,$des_re) && !empty($des_sum) && !empty($des_re)) {
+                        $articles_data = new Article();
+                        $articles_data->name = str_replace('_', ' ', $search_text);
+                        $articles_data->status = 1;
+                        $articles_data->description_text_mb = json_encode($des_re);
+                        $articles_data->description_summary = $des_sum;
+                        if ($articles_data->save()) {
+                            return redirect()->action('ArticlesController@getViewOne',$articles_data->id);
+                        }
+                    } else {
+                        $search_text2 = str_replace(' ', '_', $search_text);
+
+                        $des_re2 = "";
+                        $des_sum2 = "";
+                        $des_tt2 = "";
+                        //PARSE ALL IN HTML
+                        $url2 = 'http://ko.wikipedia.org/w/api.php?action=parse&prop=text&page='.$search_text2.'&format=json';
+                        $jsonf2 = file_get_contents($url2);
+                        if (isset($jsonf2)) {
+                            $datas2 = json_decode($jsonf2,true);
+                            if (is_array($datas2)) {
+                                $myarray2 = array_values($datas2);
+                                if (isset($myarray2[0]['text']['*'])) {
+                                    $des_re2 .= $myarray2[0]['text']['*'];
+                                }
+                            }
+                        }
+                        //SUM
+                        $url2 = 'http://ko.wikipedia.org/w/api.php?format=json&action=query&exintro=&explaintext=&titles='.$search_text2.'&prop=extracts&indexpageids';
+                        $json12 = file_get_contents($url2);
+                        if (isset($json12)) {
+                            $data222 = json_decode($json12);
+                            if (isset($data222)) {
+                                if (isset($data222->query->pageids[0])) {
+                                    $pageid2 = $data222->query->pageids[0];
+                                    if (isset($data222->query->pages->$pageid2->extract)) {
+                                        $des_tt2 = $data222->query->pages->$pageid2->extract;
+                                    }
+                                }
+                            }
+                        }
+                        $des_sum2 = strlen($des_tt2)>200?substr($des_tt2,0,200)."...":$des_tt2;
+                        if (isset($des_sum2,$des_re2) && !empty($des_sum2) && !empty($des_re2)) {
+                            $articles_data = new Article();
+                            $articles_data->name = $search_text;
+                            $articles_data->status = 1;
+                            $articles_data->description_text_mb = json_encode($des_re2);
+                            $articles_data->description_summary = $des_sum2;
+                            if ($articles_data->save()) {
+                                return redirect()->action('ArticlesController@getViewOne',$articles_data->id);
+                            }  
+                        }
+                    }
+
+                }
                 return view('articles.results')
                     ->with('layout','layouts.customize_layout')
                     ->with('resultspage','1')
                     ->with('articles',$articles)
                     ->with('search_text',$search_text)
                     ->with('more_articles',$more_articles);
-
         }
         Flash::error('Search query cannot be empty!');
         return Redirect::route('home_index');
@@ -358,48 +435,12 @@ class ArticlesController extends Controller
     public function postSearchRand()
     {
         $count = count(Article::all());
-        $articles = Article::PrepareForFinalResult(Article::find(rand(1, $count)));
-        if (isset($articles)) {
-            $more_articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy('id', 'desc')->take(10)->get());
-
-            if (isset($articles['description_text_mb'])) {
-                $des_re = json_decode($articles['description_text_mb']);
-            }
-
-
-
-            if (isset($articles)) {
-                return view('articles.final_result')
-                    ->with('resultspage','1')
-                    ->with('articles',$articles)
-                    ->with('layout','layouts.result')
-                    ->with('des_re',$des_re)
-                    ->with('more_articles',$more_articles);
-            }
-        }
+        return redirect()->action('ArticlesController@getViewOne',rand(1, $count));
     }  
     public function getSearchRand()
     {
         $count = count(Article::all());
-        $articles = Article::PrepareForFinalResult(Article::find(rand(1, $count)));
-        if (isset($articles)) {
-            $more_articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy('id', 'desc')->take(10)->get());
-
-            if (isset($articles['description_text_mb'])) {
-                $des_re = json_decode($articles['description_text_mb']);
-            }
-
-
-
-            if (isset($articles)) {
-                return view('articles.final_result')
-                    ->with('resultspage','1')
-                    ->with('articles',$articles)
-                    ->with('layout','layouts.result')
-                    ->with('des_re',$des_re)
-                    ->with('more_articles',$more_articles);
-            }
-        }
+        return redirect()->action('ArticlesController@getViewOne',rand(1, $count));
     }  
 
     public function getViewOne($id = null)
@@ -407,14 +448,14 @@ class ArticlesController extends Controller
         if (isset($id)) {
             $articles = Article::PrepareForFinalResult(Article::find($id));
             if (isset($articles)) {
+                if (isset($articles->name)&&!empty($articles->name)) {
+                    return redirect()->action('ArticlesController@getViewOneName',str_replace(' ','-',$articles->name));
+                }
                 $more_articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy('id', 'desc')->take(10)->get());
 
                 if (isset($articles['description_text_mb'])) {
                     $des_re = json_decode($articles['description_text_mb']);
                 }
-
-
-
                 if (isset($articles)) {
                     return view('articles.final_result')
                         ->with('resultspage','1')
@@ -427,6 +468,29 @@ class ArticlesController extends Controller
         }
         
     } 
+    public function getViewOneName($name = null)
+    {
+        if (isset($name)) {
+            $articles = Article::PrepareForFinalResult(Article::where('name',str_replace('-', ' ', $name))->first());
+            if (isset($articles)) {
+                $more_articles = Article::PrepareForResultsPage(Article::where('status',1)->orderBy('id', 'desc')->take(10)->get());
+
+                if (isset($articles['description_text_mb'])) {
+                    $des_re = json_decode($articles['description_text_mb']);
+                }
+                if (isset($articles)) {
+                    return view('articles.final_result')
+                        ->with('resultspage','1')
+                        ->with('articles',$articles)
+                        ->with('layout','layouts.result')
+                        ->with('des_re',$des_re)
+                        ->with('more_articles',$more_articles);
+                }
+            }
+        }
+        
+    } 
+
     public function getViewByName($name = null,$id = null)
     {
         $new_name = urldecode($name);

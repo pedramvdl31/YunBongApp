@@ -156,7 +156,7 @@
     </div>
     <div class="panel-footer clearfix">
       <a href="{!! route('articles_index') !!} " class="btn btn-info">Back</a>
-      <button type="submit" name="submit" class="btn btn-primary pull-right">Add</button>
+      <button type="submit" name="submit" class="btn btn-primary pull-right">Edit</button>
     </div>
       {!! Form::close() !!}
 </div>
