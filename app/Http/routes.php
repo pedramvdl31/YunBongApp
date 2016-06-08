@@ -35,7 +35,7 @@ Route::group(['middleware' => 'beforeFilter'], function () {
 	Route::get('/rand-articles', ['as'=>'rand_view','uses'=>'ArticlesController@getSearchRand']);
 	Route::get('view/{id}',  ['as'=>'view-f-article','uses' => 'ArticlesController@getViewOne']);
 	Route::get('article/{name}',  ['as'=>'view-n-article','uses' => 'ArticlesController@getViewOneName']);
-	Route::get('/{name}/{id}',  ['as'=>'articles_view_this','uses' => 'ArticlesController@getViewByName']);
+	Route::get('view/{name}/{id}',  ['as'=>'articles_view_this','uses' => 'ArticlesController@getViewByName']);
 
 
 
