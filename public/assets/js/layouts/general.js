@@ -11,7 +11,7 @@ general = {
 	events: function() {
 	
 		
-
+alert();
 
 		$(".thumbnail-wrapper").hover(function(){
 		    $(this).find('.thumb_like_btn').removeClass('hide');

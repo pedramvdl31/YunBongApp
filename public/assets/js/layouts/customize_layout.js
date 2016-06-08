@@ -5,6 +5,7 @@ $(document).ready(function(){
 });
 cust_layout = {
 	pageLoad: function() {
+		
 		$(window).on('scroll', function() {
 			scrollPosition = $(this).scrollTop();
 		    // console.log(scrollPosition);

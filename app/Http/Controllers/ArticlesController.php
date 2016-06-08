@@ -491,6 +491,20 @@ class ArticlesController extends Controller
         
     } 
 
+    public function getViewRandByName($name = null)
+    {
+        if (!isset($name)) {
+            Job::GetAllArticles();
+        }
+        return view('articles.final_result')
+        ->with('resultspage','1')
+        ->with('articles',$articles)
+        ->with('layout','layouts.result')
+        ->with('des_re',$des_re)
+        ->with('more_articles',$more_articles);
+    } 
+
+
     public function getViewByName($name = null,$id = null)
     {
         $new_name = urldecode($name);

