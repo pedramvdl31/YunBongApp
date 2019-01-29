@@ -3,3 +3,4 @@
 /.vagrant/*
 Homestead.yaml
 Homestead.json
+.env
